@@ -34,7 +34,7 @@ type menuStrings struct {
 	closeTab         string
 }
 
-// menuLocales mirrors the frontend's supported languages (en/de/fr/nl/es).
+// menuLocales mirrors the frontend's supported languages (en/de/fr/nl/es/pl/tr).
 // Keeping this as a Go-side table, separate from the frontend's TypeScript
 // locale files, is unavoidable: the native menu is built by the Go process
 // before any frontend code runs, and wails' menu API takes plain strings, not
@@ -219,6 +219,36 @@ var menuLocales = map[string]menuStrings{
 		openInTab:        "Otwórz w nowej karcie",
 		switchProfile:    "Zmień profil…",
 		closeTab:         "Zamknij kartę",
+	},
+	"tr": {
+		appMenu:          "Pelton",
+		about:            "Pelton Hakkında",
+		preferences:      "Tercihler…",
+		hide:             "Pelton'u Gizle",
+		quit:             "Pelton'dan Çık",
+		fileMenu:         "Dosya",
+		compose:          "Yeni İleti",
+		exportPDF:        "İletiyi PDF Olarak Dışa Aktar…",
+		closeWindow:      "Pencereyi Kapat",
+		mailboxMenu:      "Posta Kutusu",
+		syncNow:          "Şimdi Eşitle",
+		openWindow:       "Pelton'u Aç",
+		addMailbox:       "Posta Kutusu Ekle…",
+		manageMailboxes:  "Posta Kutularını Yönet…",
+		contacts:         "Kişiler…",
+		mailMenu:         "İleti",
+		undo:             "Geri Al",
+		markRead:         "Okundu Olarak İşaretle",
+		markUnread:       "Okunmadı Olarak İşaretle",
+		flagUnflag:       "Bayrak Ekle / Kaldır",
+		archive:          "Arşivle",
+		deleteMessage:    "İletiyi Sil",
+		viewMenu:         "Görünüm",
+		toggleFullscreen: "Tam Ekranı Aç/Kapat",
+		lowPowerMode:     "Düşük Güç Modu",
+		openInTab:        "Yeni Sekmede Aç",
+		switchProfile:    "Profil Değiştir…",
+		closeTab:         "Sekmeyi Kapat",
 	},
 }
 
