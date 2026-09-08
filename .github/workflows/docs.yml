@@ -16,6 +16,11 @@ on:
       # the last build, which is how a broken icon reference survived a fix.
       - "overrides/**"
       - ".github/workflows/docs.yml"
+      # synced into docs/contributing/ by scripts/sync-root-docs.sh below
+      - "CONTRIBUTING.md"
+      - "CODE_OF_CONDUCT.md"
+      - "DCO.md"
+      - "scripts/sync-root-docs.sh"
   workflow_dispatch:
 
 permissions:
@@ -43,13 +48,20 @@ jobs:
       - name: Install zensical
         run: pip install zensical==0.0.50
 
+      - name: Sync CONTRIBUTING.md, CODE_OF_CONDUCT.md and DCO.md into docs/
+        run: scripts/sync-root-docs.sh
+
       - name: Build
         run: zensical build --clean
 
-      - name: Publish raw AGENTS.md
-        # /AGENTS.md serves the raw markdown for machines (llms.txt points
-        # here); the rendered copy stays reachable at /AGENTS/ for humans.
-        run: cp docs/AGENTS.md site/AGENTS.md
+      - name: Publish raw markdown alongside every page
+        # zensical only ever emits rendered HTML; this mirrors every
+        # docs/**/*.md source file into site/ at the same path so agents (and
+        # llms.txt) can fetch the raw markdown for any page, e.g.
+        # /install/macos.md next to the rendered /install/macos/. This is also
+        # what publishes /AGENTS.md (the rendered copy stays reachable at
+        # /AGENTS/ for humans).
+        run: scripts/copy-docs-markdown.sh
 
       - name: Fail on external loads (no-CDN check)
         # ordinary <a href> links to other sites are fine; what must never

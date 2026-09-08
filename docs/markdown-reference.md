@@ -1,23 +1,9 @@
-<!--
-  SCRATCH REFERENCE, not the real Install page yet.
-
-  This file demonstrates every markdown feature enabled in zensical.toml,
-  so it can be used as a copy-paste cheatsheet while writing the other
-  pages. Delete everything below once the real Install content replaces
-  it.
-
-  Front matter (YAML, must be the very first thing in the file):
-    title        overrides the nav label / <title> for this page
-    description  overrides the <meta name="description"> (site_description
-                 in zensical.toml is the fallback)
-  Both are optional; omit either to fall back to the H1 / site default.
--->
 ---
-title: Install
-description: Install Pelton on macOS, Windows, or Linux.
+title: Markdown feature reference
+description: Reference for the markdown extensions enabled in this docs site.
 ---
 
-# Install
+# Markdown feature reference
 
 ## Admonitions (`admonition`, `pymdownx.details`)
 
@@ -45,14 +31,14 @@ Collapsible version (`???`), starts closed; `???+` starts open:
 syncs tabs with the same label across the whole page (e.g. every "Linux"
 tab switches together, handy for OS-specific steps).
 
-=== "macOS"
-    ```bash
-    brew install --cask pelton
-    ```
-
 === "Windows"
     ```powershell
     winget install Pelton
+    ```
+
+=== "macOS"
+    ```bash
+    brew install --cask pelton
     ```
 
 === "Linux"
@@ -78,7 +64,7 @@ func main() {
 }
 ```
 
-With annotations (`content.code.annotate`) — numbers become clickable markers:
+With annotations (`content.code.annotate`), numbers become clickable markers:
 
 ```bash
 pelton --debug # (1)!
@@ -114,6 +100,17 @@ Press ++ctrl+shift+p++ to open the command palette, or ++cmd+k++ on macOS.
 
 `SMTP`
 :   Protocol used to send mail through the server.
+
+## Footnotes (`footnotes`)
+
+Here's a sentence with a footnote.[^1] And another one.[^long]
+
+[^1]: The footnote text goes here.
+[^long]: Footnotes can hold multiple paragraphs and even code:
+
+    ```bash
+    echo "still part of the footnote"
+    ```
 
 ## Attribute lists (`attr_list`) and tooltips (`content.tooltips`)
 
@@ -162,7 +159,7 @@ Text under it.
 
 ## What's deliberately NOT available
 
-No emoji shortcodes (`:smile:`) and no math (`$...$`) — both would pull
+No emoji shortcodes (`:smile:`) and no math (`$...$`), both would pull
 from a CDN at build time, which breaks the no-CDN check in
 `.github/workflows/docs.yml`. Don't add the `pymdownx.emoji` or `mdx_math`
 / `pymdownx.arithmatex` extensions without sourcing them locally first.
