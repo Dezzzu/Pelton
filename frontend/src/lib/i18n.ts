@@ -25,9 +25,9 @@ import { writable, derived } from 'svelte/store'
 import en from './locales/en'
 import { getUserLocale } from './api'
 
-export type Locale = 'en' | 'de' | 'fr' | 'nl' | 'es' | 'pl'
+export type Locale = 'en' | 'de' | 'fr' | 'nl' | 'es' | 'pl' | 'tr'
 
-export const locales: Locale[] = ['en', 'de', 'fr', 'nl', 'es', 'pl']
+export const locales: Locale[] = ['en', 'de', 'fr', 'nl', 'es', 'pl', 'tr']
 
 // each language is shown in its own spelling, not translated into the
 // currently active one, so it stays recognizable no matter what is selected.
@@ -38,6 +38,7 @@ export const localeNames: Record<Locale, string> = {
   nl: 'Nederlands',
   es: 'Español',
   pl: 'Polski',
+  tr: 'Türkçe',
 }
 
 const loaders: Record<Exclude<Locale, 'en'>, () => Promise<{ default: Record<string, string> }>> = {
@@ -46,6 +47,7 @@ const loaders: Record<Exclude<Locale, 'en'>, () => Promise<{ default: Record<str
   nl: () => import('./locales/nl'),
   es: () => import('./locales/es'),
   pl: () => import('./locales/pl'),
+  tr: () => import('./locales/tr'),
 }
 
 // catalogs holds every locale's strings that have been loaded so far. english
