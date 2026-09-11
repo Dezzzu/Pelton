@@ -78,8 +78,7 @@
   import { recordDeleted } from '../../stores/undodelete'
   import { recordArchived } from '../../stores/undoarchive'
   import { openContextMenu, type MenuEntry } from '../../stores/contextmenu'
-  import { menuHint } from '../../stores/shortcuts'
-  import type { ShortcutAction } from '../../lib/shortcuts'
+  import { menuHint, shortcutTitle } from '../../stores/shortcuts'
   import { openInTab } from '../../stores/tabs'
   import { errorMessage, toastError } from '../../stores/toast'
   import { isVIPAddress } from '../../stores/vip'
@@ -157,14 +156,6 @@
       viewportHeight = listEl.clientHeight || viewportHeight
     }
   })
-
-  // withHint appends an action's shortcut to a button tooltip, so hovering the
-  // delete button says which key does the same thing (#329). Unbound actions,
-  // and hints turned off, leave the tooltip as it was.
-  function withHint(label: string, action: ShortcutAction): string {
-    const hint = menuHint(action)
-    return hint ? `${label}  ${hint}` : label
-  }
 
   // selectionKey identifies a selection so we reload only when it actually
   // changes, not on unrelated store updates.
@@ -660,30 +651,30 @@
       {/if}
       <span class="sel-spacer"></span>
       {#if selectedItems.some((m) => !m.seen)}
-        <button type="button" class="act" title={withHint($t('shortcut.markRead'), 'mark-read')} on:click={() => bulkSetSeen(true)}>
+        <button type="button" class="act" title={$shortcutTitle($t('shortcut.markRead'), 'mark-read')} on:click={() => bulkSetSeen(true)}>
           <IconMailOpened size={16} stroke={1.7} />
         </button>
       {:else}
-        <button type="button" class="act" title={withHint($t('shortcut.markUnread'), 'mark-unread')} on:click={() => bulkSetSeen(false)}>
+        <button type="button" class="act" title={$shortcutTitle($t('shortcut.markUnread'), 'mark-unread')} on:click={() => bulkSetSeen(false)}>
           <IconMailFilled size={16} stroke={1.7} />
         </button>
       {/if}
       {#if selectedItems.some((m) => !m.flagged)}
-        <button type="button" class="act" title={withHint($t('messageList.flag'), 'flag')} on:click={() => bulkSetFlagged(true)}>
+        <button type="button" class="act" title={$shortcutTitle($t('messageList.flag'), 'flag')} on:click={() => bulkSetFlagged(true)}>
           <IconFlagFilled size={16} stroke={1.7} />
         </button>
       {:else}
-        <button type="button" class="act" title={withHint($t('messageList.unflag'), 'flag')} on:click={() => bulkSetFlagged(false)}>
+        <button type="button" class="act" title={$shortcutTitle($t('messageList.unflag'), 'flag')} on:click={() => bulkSetFlagged(false)}>
           <IconFlag size={16} stroke={1.7} />
         </button>
       {/if}
-      <button type="button" class="act" title={withHint($t('action.archive'), 'archive')} on:click={bulkArchiveSelection}>
+      <button type="button" class="act" title={$shortcutTitle($t('action.archive'), 'archive')} on:click={bulkArchiveSelection}>
         <IconArchive size={16} stroke={1.7} />
       </button>
-      <button type="button" class="act" title={withHint($t('messageList.menu.moveTo'), 'move-to')} on:click={bulkMove}>
+      <button type="button" class="act" title={$shortcutTitle($t('messageList.menu.moveTo'), 'move-to')} on:click={bulkMove}>
         <IconFolderSymlink size={16} stroke={1.7} />
       </button>
-      <button type="button" class="act danger" title={withHint($t('action.delete'), 'delete-message')} on:click={bulkDelete}>
+      <button type="button" class="act danger" title={$shortcutTitle($t('action.delete'), 'delete-message')} on:click={bulkDelete}>
         <IconTrash size={16} stroke={1.7} />
       </button>
     </div>

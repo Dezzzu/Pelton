@@ -19,6 +19,7 @@
   import IconButton from '../common/IconButton.svelte'
   import { t } from '../../lib/i18n'
   import { online } from '../../stores/network'
+  import { shortcutTitle } from '../../stores/shortcuts'
 
   export let flagged: boolean = false
   /** whether the VirusTotal scan action is offered. */
@@ -43,29 +44,38 @@
 </script>
 
 <div class="toolbar" role="toolbar" aria-label={$t('detail.toolbar.ariaLabel')}>
-  <IconButton label={$t('action.reply')} on:click={() => dispatch('reply')}>
+  <IconButton label={$t('action.reply')} title={$shortcutTitle($t('action.reply'), 'reply')} on:click={() => dispatch('reply')}>
     <IconArrowBackUp size={18} stroke={1.6} />
   </IconButton>
-  <IconButton label={$t('detail.toolbar.replyAll')} on:click={() => dispatch('replyAll')}>
+  <IconButton
+    label={$t('detail.toolbar.replyAll')}
+    title={$shortcutTitle($t('detail.toolbar.replyAll'), 'reply-all')}
+    on:click={() => dispatch('replyAll')}
+  >
     <IconArrowBackUpDouble size={18} stroke={1.6} />
   </IconButton>
-  <IconButton label={$t('action.forward')} on:click={() => dispatch('forward')}>
+  <IconButton label={$t('action.forward')} title={$shortcutTitle($t('action.forward'), 'forward')} on:click={() => dispatch('forward')}>
     <IconArrowForwardUp size={18} stroke={1.6} />
   </IconButton>
 
   <span class="divider" aria-hidden="true"></span>
 
-  <IconButton label={$t('action.archive')} on:click={() => dispatch('archive')}>
+  <IconButton label={$t('action.archive')} title={$shortcutTitle($t('action.archive'), 'archive')} on:click={() => dispatch('archive')}>
     <IconArchive size={18} stroke={1.6} />
   </IconButton>
-  <IconButton label={flagLabel} active={flagged} on:click={() => dispatch('toggleFlag')}>
+  <IconButton label={flagLabel} title={$shortcutTitle(flagLabel, 'flag')} active={flagged} on:click={() => dispatch('toggleFlag')}>
     {#if flagged}
       <IconFlagFilled size={18} />
     {:else}
       <IconFlag size={18} stroke={1.6} />
     {/if}
   </IconButton>
-  <IconButton label={$t('action.delete')} danger on:click={() => dispatch('delete')}>
+  <IconButton
+    label={$t('action.delete')}
+    title={$shortcutTitle($t('action.delete'), 'delete-message')}
+    danger
+    on:click={() => dispatch('delete')}
+  >
     <IconTrash size={18} stroke={1.6} />
   </IconButton>
 
@@ -82,7 +92,11 @@
 
   <span class="divider" aria-hidden="true"></span>
 
-  <IconButton label={$t('detail.toolbar.print')} on:click={() => dispatch('print')}>
+  <IconButton
+    label={$t('detail.toolbar.print')}
+    title={$shortcutTitle($t('detail.toolbar.print'), 'export-pdf')}
+    on:click={() => dispatch('print')}
+  >
     <IconPrinter size={18} stroke={1.6} />
   </IconButton>
   <IconButton label={$t('detail.toolbar.messageInfo')} on:click={() => dispatch('info')}>

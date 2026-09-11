@@ -21,6 +21,7 @@
   import type { Folder } from '../../lib/types'
   import { selection, selectFolder } from '../../stores/selection'
   import { openContextMenu } from '../../stores/contextmenu'
+  import { menuHint } from '../../stores/shortcuts'
   import { reorder, type ReorderDetail } from '../../lib/reorder'
   import { refreshSidebar } from '../../stores/accounts'
   import { reorderPinnedFolders, setFolderPinned } from '../../lib/api'
@@ -63,7 +64,7 @@
 
   function onContext(event: MouseEvent, folder: Folder): void {
     openContextMenu(event.clientX, event.clientY, [
-      { label: $t('folders.unpin'), icon: IconPinnedOff, action: () => void unpin(folder) },
+      { label: $t('folders.unpin'), icon: IconPinnedOff, hint: menuHint('toggle-pin-folder'), action: () => void unpin(folder) },
     ])
   }
 </script>
