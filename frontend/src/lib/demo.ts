@@ -227,6 +227,38 @@ export function demoMessage(id: number): MessageDetail {
   }
 }
 
+/** demoSearch returns the sample inbox as a result page, so searching in demo
+ * mode never reaches the real mailbox. */
+export function demoSearch(): { messages: MessageSummary[]; total: number } {
+  return { messages, total: messages.length }
+}
+
+/** demoHtml returns the sample body, for the paths that want the raw html of a
+ * message rather than the whole detail. */
+export function demoHtml(): string {
+  return sharedBodyHtml
+}
+
+/** demoSource renders a sample message as rfc 822 text, so the source viewer
+ * shows the potato mail rather than fetching a real one over imap. */
+export function demoSource(id: number): string {
+  const m = messages.find((x) => x.id === id) ?? messages[0]
+  return [
+    `Return-Path: <${m.fromAddress}>`,
+    `Delivered-To: spud@pelton.email`,
+    `Date: ${new Date(m.date).toUTCString()}`,
+    `From: ${m.fromName} <${m.fromAddress}>`,
+    `To: Spud McPelton <spud@pelton.email>`,
+    `Subject: ${m.subject}`,
+    `Message-ID: <${m.id}.potato@pelton.email>`,
+    `MIME-Version: 1.0`,
+    `Content-Type: text/html; charset=utf-8`,
+    `Content-Transfer-Encoding: 8bit`,
+    '',
+    sharedBodyHtml,
+  ].join('\n')
+}
+
 /** demoOutbox returns a single message frozen in the "sending" state, so the
  * status bar shows an email on its way out. */
 export function demoOutbox(): OutboxRow[] {
