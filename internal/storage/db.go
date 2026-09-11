@@ -112,6 +112,16 @@ func Open(path string) (*DB, error) {
 	if err != nil {
 		return nil, fmt.Errorf("storage: open db %q: %w", path, err)
 	}
+	// the pool was never actually bounded, so every concurrent caller opened a
+	// connection of its own and they all queued for sqlite's single write lock.
+	// A sync holds that lock in bursts, and the app has a handful of readers, so
+	// a small ceiling is enough to keep a sync, the ui and a background job off
+	// each other without the pool growing to whatever the moment demanded.
+	sqlDB.SetMaxOpenConns(maxOpenConns)
+	sqlDB.SetMaxIdleConns(maxOpenConns)
+	// a connection is cheap here, and an idle one costs a file handle rather
+	// than a server session, so they are kept rather than recycled on a timer.
+	sqlDB.SetConnMaxLifetime(0)
 	if err := sqlDB.Ping(); err != nil {
 		return nil, fmt.Errorf("storage: ping db %q: %w", path, err)
 	}
@@ -128,11 +138,30 @@ func (d *DB) Path() string {
 	return d.path
 }
 
+// maxOpenConns caps the connection pool. One writer at a time is all sqlite
+// allows whatever this is set to; the rest of the ceiling is for readers, and
+// keeping it small keeps the queue for the write lock short and predictable.
+const maxOpenConns = 8
+
 // dataSourceName builds the dsn. the pragmas are set as query params so they
 // apply to every connection the pool opens, not just the first one. wal
 // improves read and write concurrency, foreign_keys enforces the cascades.
+//
+// _txlock=immediate is what keeps a busy database from turning into an error.
+// Without it a transaction begins deferred and only asks for the write lock at
+// its first write, and by then another connection may have written since the
+// transaction's snapshot: sqlite fails that outright rather than waiting, and
+// busy_timeout does not cover it. Taking the lock at BEGIN instead turns the
+// same contention into a wait that busy_timeout governs, which is the
+// difference between a sidebar drag during a sync waiting its turn and the
+// same drag failing with "database is locked".
+//
+// busy_timeout has to cover the longest a writer can hold the lock, not the
+// average. Caching a message with attachments writes their bytes to disk
+// inside its transaction, so on a slow disk with a large attachment that is
+// well past the 5s this used to allow.
 func dataSourceName(path string) string {
-	const params = "_pragma=journal_mode(WAL)&_pragma=foreign_keys(1)&_pragma=busy_timeout(5000)"
+	const params = "_pragma=journal_mode(WAL)&_pragma=foreign_keys(1)&_pragma=busy_timeout(15000)&_txlock=immediate"
 	return fmt.Sprintf("file:%s?%s", path, params)
 }
 
