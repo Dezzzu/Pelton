@@ -8,9 +8,10 @@
   import { IconPlus, IconPencil, IconTrash } from '@tabler/icons-svelte'
   import type { View } from '../../lib/types'
   import { viewIconComponent, viewColorCss } from '../../lib/viewicons'
-  import { selection, selectSavedView } from '../../stores/selection'
+  import { selection, selectSavedView, leaveDeletedSavedView } from '../../stores/selection'
   import { reorderViews, deleteView } from '../../lib/api'
   import { loadViews } from '../../stores/views'
+  import { askConfirm } from '../../stores/confirm'
   import { toastError, errorMessage } from '../../stores/toast'
   import { t } from '../../lib/i18n'
 
@@ -22,9 +23,6 @@
   // local drag copy so the list animates during a drag without mutating the store.
   let order: View[] = []
   $: order = views
-
-  // id whose delete button is in its confirm step.
-  let confirmingDelete = 0
 
   function choose(v: View): void {
     selectSavedView(v.id, v.name)
@@ -45,13 +43,18 @@
   }
 
   async function remove(v: View): Promise<void> {
-    if (confirmingDelete !== v.id) {
-      confirmingDelete = v.id
+    const ok = await askConfirm({
+      title: $t('views.deleteConfirmTitle').replace('{name}', v.name),
+      body: $t('views.deleteConfirmBody'),
+      confirmLabel: $t('views.deleteConfirmAction'),
+      danger: true,
+    })
+    if (!ok) {
       return
     }
-    confirmingDelete = 0
     try {
       await deleteView(v.id)
+      leaveDeletedSavedView(v.id)
     } catch (err) {
       toastError(errorMessage(err))
     }
@@ -92,9 +95,8 @@
           <button
             type="button"
             class="act"
-            class:danger={confirmingDelete === view.id}
             aria-label={$t('views.delete')}
-            title={confirmingDelete === view.id ? $t('views.confirmDelete') : $t('views.delete')}
+            title={$t('views.delete')}
             on:click|stopPropagation={() => remove(view)}
           >
             <IconTrash size={13} stroke={1.7} />
@@ -221,10 +223,6 @@
   .act:hover {
     background: var(--surface-raised);
     color: var(--text-primary);
-  }
-
-  .act.danger {
-    color: var(--danger, #e5484d);
   }
 
   .new {
