@@ -11,6 +11,23 @@ for UI/CSS rules, which apply to everything in `src/components`.
 - `src/theme/` — design tokens and theme/accent logic.
 - `src/lib/` — Wails API bindings, locales.
 
+## Wails bindings
+
+`frontend/wailsjs/` is maintained by hand, but `wails generate module` rewrites
+it whenever it runs, so matching what the generator emits is not a style
+preference. Anything written differently is rewritten by the next person who
+runs it, and lands in their diff as churn that has nothing to do with their
+change.
+
+The detail that keeps getting missed is blank lines. In `go/models.ts` a blank
+line inside a namespace or a class is a single tab, not an empty line; only the
+lines separating one namespace from the next are truly empty. After adding a
+DTO by hand, `grep -nP '^$' frontend/wailsjs/go/models.ts` should still match
+nothing but those namespace boundaries.
+
+`go/desktop/App.js` and `App.d.ts` have no nesting and use empty lines
+throughout, so they need no such care.
+
 ## Docstrings
 
 Every exported function, exported type/interface, and public component prop
