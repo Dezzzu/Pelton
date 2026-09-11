@@ -9,9 +9,10 @@
 import { isMac } from './i18n'
 
 // ShortcutAction is the set of app-wide actions a shortcut can trigger. The
-// second group are message-level actions that act on the open message; they ship
-// unbound (empty default combo) so the user can assign keys to the right-click
-// menu items if they want.
+// second group are message-level actions that act on the open message, or on
+// the selection when there is one. The ones reached daily ship on the single
+// letters webmail uses; the rest ship unbound (empty default combo) for the
+// user to assign.
 export type ShortcutAction =
   | 'compose'
   | 'preferences'
@@ -95,29 +96,36 @@ export const shortcuts: Shortcut[] = [
   // consumes Cmd+W before the webview sees it, so this never double-fires, and
   // it keeps working in the reduced-native-menu mode where File is dropped.
   { action: 'close-window', combo: 'mod+w', labelKey: 'shortcut.closeWindow' },
-  // message-level actions, unbound by default.
-  { action: 'reply', combo: '', labelKey: 'shortcut.reply' },
-  { action: 'reply-all', combo: '', labelKey: 'shortcut.replyAll' },
-  { action: 'forward', combo: '', labelKey: 'shortcut.forward' },
+  // message-level actions. The daily ones take the single letters webmail has
+  // used for two decades, so the keys someone already has in their fingers do
+  // what they expect here too. A modifier-less binding never fires while the
+  // event comes from a text field, and vim mode reads its own keys first, so
+  // these collide with neither typing nor h/j/k/l navigation.
+  { action: 'reply', combo: 'r', labelKey: 'shortcut.reply' },
+  { action: 'reply-all', combo: 'a', labelKey: 'shortcut.replyAll' },
+  { action: 'forward', combo: 'f', labelKey: 'shortcut.forward' },
+  // read stays unbound: marking something read by hand is rare next to the
+  // other direction, and there is no letter for it anyone would guess.
   { action: 'mark-read', combo: '', labelKey: 'shortcut.markRead' },
-  { action: 'mark-unread', combo: '', labelKey: 'shortcut.markUnread' },
-  { action: 'flag', combo: '', labelKey: 'shortcut.flag' },
-  { action: 'snooze', combo: '', labelKey: 'shortcut.snooze' },
+  { action: 'mark-unread', combo: 'u', labelKey: 'shortcut.markUnread' },
+  { action: 'flag', combo: 's', labelKey: 'shortcut.flag' },
+  { action: 'snooze', combo: 'z', labelKey: 'shortcut.snooze' },
   { action: 'download-offline', combo: '', labelKey: 'shortcut.downloadOffline' },
   // bound by default, unlike the rest of the message actions: every mail client
   // deletes on this key, neither key types anything in a list, and delete means
   // move to trash with one undo behind it (#329).
   { action: 'delete-message', combo: 'backspace', alt: 'delete', labelKey: 'shortcut.deleteMessage' },
-  { action: 'archive', combo: '', labelKey: 'shortcut.archive' },
+  { action: 'archive', combo: 'e', labelKey: 'shortcut.archive' },
   { action: 'unsubscribe', combo: '', labelKey: 'shortcut.unsubscribe' },
   // saved views (preset searches), unbound by default so the user opts in.
   { action: 'new-view', combo: '', labelKey: 'shortcut.newView' },
   { action: 'next-view', combo: '', labelKey: 'shortcut.nextView' },
   { action: 'prev-view', combo: '', labelKey: 'shortcut.prevView' },
-  // palette actions, unbound by default.
+  // palette actions, unbound by default. Move-to is the exception: it is a
+  // message action reached as often as archive, so it takes its letter too.
   { action: 'edit-view', combo: '', labelKey: 'palette.action.editView' },
   { action: 'mark-vip', combo: '', labelKey: 'palette.action.markVip' },
-  { action: 'move-to', combo: '', labelKey: 'messageList.menu.moveTo' },
+  { action: 'move-to', combo: 'm', labelKey: 'messageList.menu.moveTo' },
   { action: 'flag-color', combo: '', labelKey: 'palette.action.flagColor' },
   { action: 'remove-offline', combo: '', labelKey: 'messageList.menu.removeOffline' },
   { action: 'new-folder', combo: '', labelKey: 'palette.action.newFolder' },
