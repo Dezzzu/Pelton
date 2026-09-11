@@ -266,8 +266,9 @@
   }
 
   onMount(async () => {
-    // cosmetic demo mode (--potatoes-are-nice): flip the data layer to sample
-    // data before anything loads, so the whole ui fills with the potato inbox.
+    // cosmetic demo mode (--potatoes-are-nice). main.ts has normally answered
+    // this before the first component mounted; this is the backstop for a
+    // webview where the bindings were not ready that early.
     const demo = await isDemoMode().catch(() => false)
     setDemoActive(demo)
 
