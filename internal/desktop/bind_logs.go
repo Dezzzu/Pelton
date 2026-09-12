@@ -9,7 +9,7 @@ import (
 
 	wailsruntime "github.com/wailsapp/wails/v2/pkg/runtime"
 
-	"github.com/TRC-Loop/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/logging"
 )
 
 var (

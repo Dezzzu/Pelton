@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/crypto"
+	"github.com/peltonapp/Pelton/internal/crypto"
 )
 
 // Every address header we generate has to parse back as the number of

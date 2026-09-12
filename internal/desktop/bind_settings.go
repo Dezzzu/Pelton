@@ -5,8 +5,8 @@ import (
 
 	wailsruntime "github.com/wailsapp/wails/v2/pkg/runtime"
 
-	"github.com/TRC-Loop/Pelton/internal/logging"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // ui setting keys. theme and editor mode already exist in storage; the rest are

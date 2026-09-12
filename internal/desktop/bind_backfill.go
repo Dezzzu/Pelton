@@ -3,8 +3,8 @@ package desktop
 import (
 	"fmt"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Fetching older mail on demand (#175). A first sync only caches a folder's

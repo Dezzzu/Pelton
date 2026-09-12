@@ -7,7 +7,7 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // TestSyncOnlyDeletesWhatTheUserDeleted is the guard on the whole destructive

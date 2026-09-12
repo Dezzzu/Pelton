@@ -5,11 +5,11 @@
 *Before Contributing please read the Information below.*
 
 **There are multiple ways you can Contribute to the Pelton Project:**
-1. [Submit a Theme ↗](https://github.com/TRC-Loop/pelton-themes/issues/new?template=submit_theme.yml)
-2. [Contribute to the Website (pelton.app) ↗](https://github.com/TRC-Loop/pelton.app)
-3. [Submitting a Feature (Request)](https://github.com/TRC-Loop/Pelton/issues)
-4. [Reporting a Bug](https://github.com/TRC-Loop/Pelton/issues)
-5. [Requesting a Language or translating Pelton](https://github.com/TRC-Loop/Pelton/issues)
+1. [Submit a Theme ↗](https://github.com/peltonapp/pelton-themes/issues/new?template=submit_theme.yml)
+2. [Contribute to the Website (pelton.app) ↗](https://github.com/peltonapp/pelton.app)
+3. [Submitting a Feature (Request)](https://github.com/peltonapp/Pelton/issues)
+4. [Reporting a Bug](https://github.com/peltonapp/Pelton/issues)
+5. [Requesting a Language or translating Pelton](https://github.com/peltonapp/Pelton/issues)
 6. Submitting PRs
    
 ## Code of Conduct
@@ -26,7 +26,7 @@ Report problems to [me@arne.sh ↗](mailto:me@arne.sh). Reports are handled priv
 
 ## AI-Assisted Development
 
-Pelton has files to guide AI, starting with [AGENTS.md](https://github.com/TRC-Loop/Pelton/blob/main/AGENTS.md) as the entrypoint.
+Pelton has files to guide AI, starting with [AGENTS.md](https://github.com/peltonapp/Pelton/blob/main/AGENTS.md) as the entrypoint.
 
 **Allowance**
 

@@ -4,7 +4,7 @@ import (
 	"errors"
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func TestRenamedPath(t *testing.T) {

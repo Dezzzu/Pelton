@@ -15,9 +15,9 @@ import (
 	"strings"
 	"time"
 
-	pcarddav "github.com/TRC-Loop/Pelton/internal/carddav"
-	"github.com/TRC-Loop/Pelton/internal/credentials"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	pcarddav "github.com/peltonapp/Pelton/internal/carddav"
+	"github.com/peltonapp/Pelton/internal/credentials"
+	"github.com/peltonapp/Pelton/internal/storage"
 	"github.com/google/uuid"
 )
 

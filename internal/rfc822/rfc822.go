@@ -19,7 +19,7 @@ import (
 	"github.com/emersion/go-message/mail"
 
 	// decodes the legacy charsets, and guesses at the ones a message gets wrong
-	"github.com/TRC-Loop/Pelton/internal/charsetguess"
+	"github.com/peltonapp/Pelton/internal/charsetguess"
 )
 
 // Message is a parsed message. Text and HTML hold the first body part of each

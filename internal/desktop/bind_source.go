@@ -1,7 +1,7 @@
 package desktop
 
 import (
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
 
 	"github.com/emersion/go-imap/v2"
 )

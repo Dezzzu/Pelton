@@ -29,8 +29,8 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/TRC-Loop/Pelton/internal/rfc822"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/rfc822"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Importer writes parsed messages into the local store.

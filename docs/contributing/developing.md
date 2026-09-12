@@ -32,7 +32,7 @@ your platform's GTK/WebKitGTK, WebView2, or Xcode toolchain.
 ## Running in dev mode
 
 ```bash
-git clone https://github.com/TRC-Loop/Pelton.git
+git clone https://github.com/peltonapp/Pelton.git
 cd Pelton
 make run
 ```

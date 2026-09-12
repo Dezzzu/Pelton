@@ -3,9 +3,9 @@ package desktop
 import (
 	"errors"
 
-	"github.com/TRC-Loop/Pelton/internal/crypto"
-	"github.com/TRC-Loop/Pelton/internal/mailview"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/crypto"
+	"github.com/peltonapp/Pelton/internal/mailview"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Reading protected mail (#193). The ciphertext is kept by the sync layer and

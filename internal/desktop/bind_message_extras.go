@@ -6,7 +6,7 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
 )
 
 // colorKeywords maps a color index (1..8) to the Thunderbird-style imap keyword

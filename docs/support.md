@@ -20,8 +20,8 @@ Questions, feedback, or just want to say hi? Email
 
 Found a security vulnerability? Don't open a public issue, and don't post it
 in Discord. Email [security@pelton.app](mailto:security@pelton.app) instead,
-or [open a private security advisory](https://github.com/TRC-Loop/Pelton/security/advisories/new)
-on GitHub. See [SECURITY.md](https://github.com/TRC-Loop/Pelton/blob/main/SECURITY.md)
+or [open a private security advisory](https://github.com/peltonapp/Pelton/security/advisories/new)
+on GitHub. See [SECURITY.md](https://github.com/peltonapp/Pelton/blob/main/SECURITY.md)
 for the full policy.
 
 ## Personal contact
@@ -31,5 +31,5 @@ For anything you'd rather discuss directly with the maintainer, email
 
 ## Missing a feature, found a bug, or translation issues
 
-Open an issue on [GitHub](https://github.com/TRC-Loop/Pelton/issues) so it can
+Open an issue on [GitHub](https://github.com/peltonapp/Pelton/issues) so it can
 be tracked and searched by others hitting the same thing.

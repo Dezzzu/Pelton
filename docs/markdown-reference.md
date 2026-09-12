@@ -116,7 +116,7 @@ Here's a sentence with a footnote.[^1] And another one.[^long]
 
 Add classes, ids, or a title (rendered as a tooltip) to almost anything:
 
-[Download the latest release](https://github.com/TRC-Loop/Pelton/releases){ .md-button title="Opens GitHub Releases" }
+[Download the latest release](https://github.com/peltonapp/Pelton/releases){ .md-button title="Opens GitHub Releases" }
 
 A span with a tooltip: [hover me](#){ title="I'm a tooltip" }.
 

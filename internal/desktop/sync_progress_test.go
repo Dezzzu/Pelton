@@ -3,8 +3,8 @@ package desktop
 import (
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
-	psync "github.com/TRC-Loop/Pelton/internal/sync"
+	"github.com/peltonapp/Pelton/internal/storage"
+	psync "github.com/peltonapp/Pelton/internal/sync"
 )
 
 func folder(id int64, name string) storage.Folder {

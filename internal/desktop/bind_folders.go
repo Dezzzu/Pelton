@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Mailbox management (#132): create, rename and delete folders from the

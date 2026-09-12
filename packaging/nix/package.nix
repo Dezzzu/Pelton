@@ -96,7 +96,7 @@ buildGoModule (finalAttrs: {
   meta = {
     description = "Privacy-focused, cross-platform desktop email client";
     homepage = "https://pelton.app";
-    changelog = "https://github.com/TRC-Loop/Pelton/releases/tag/v${lib.head (lib.splitString "+" finalAttrs.version)}";
+    changelog = "https://github.com/peltonapp/Pelton/releases/tag/v${lib.head (lib.splitString "+" finalAttrs.version)}";
     license = lib.licenses.gpl3Plus;
     platforms = lib.platforms.linux;
     mainProgram = "pelton";

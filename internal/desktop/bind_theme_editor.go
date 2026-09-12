@@ -8,7 +8,7 @@ import (
 	"slices"
 	"strings"
 
-	"github.com/TRC-Loop/Pelton/internal/themepack"
+	"github.com/peltonapp/Pelton/internal/themepack"
 )
 
 // The palette editor (#57) saves its themes as regular .peltontheme files in

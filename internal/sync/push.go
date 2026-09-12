@@ -6,7 +6,7 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // pushFlags stores the merged flags locally, adds them on the server and clears

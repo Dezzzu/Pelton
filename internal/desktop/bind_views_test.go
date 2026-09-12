@@ -3,7 +3,7 @@ package desktop
 import (
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func TestSplitJoinAddrs(t *testing.T) {

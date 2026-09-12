@@ -3,9 +3,9 @@ package desktop
 import (
 	"errors"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	psmtp "github.com/TRC-Loop/Pelton/internal/smtp"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	psmtp "github.com/peltonapp/Pelton/internal/smtp"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // errUnknownTLSMode rejects a security value the frontend should never send.

@@ -32,7 +32,7 @@ Version:        %{_pelton_version}
 Release:        1%{?dist}
 Summary:        Open-source desktop email client
 License:        GPL-3.0-or-later
-URL:            https://github.com/TRC-Loop/Pelton
+URL:            https://github.com/peltonapp/Pelton
 Source0:        %{name}-%{version}.tar.gz
 BuildArch:      x86_64
 
@@ -78,4 +78,4 @@ gtk-update-icon-cache %{_datadir}/icons/hicolor &> /dev/null || :
 %changelog
 * Thu Jan 01 1970 Pelton release automation <me@arne.sh> - 0-1
 - Packaged automatically by GitHub Actions on release; see
-  https://github.com/TRC-Loop/Pelton/releases for real changelogs.
+  https://github.com/peltonapp/Pelton/releases for real changelogs.

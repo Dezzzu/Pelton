@@ -51,7 +51,7 @@ on the target platform gets you a cleaner build.
 ## Clone the repo
 
 ```bash
-git clone https://github.com/TRC-Loop/Pelton.git
+git clone https://github.com/peltonapp/Pelton.git
 cd Pelton
 ```
 

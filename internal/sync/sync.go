@@ -8,8 +8,8 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // mailClient is the slice of the imap client's public surface the sync engine

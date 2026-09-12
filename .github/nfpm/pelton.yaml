@@ -8,7 +8,7 @@ maintainer: "Arne K. <me@arne.sh>"
 description: |
   Open-source cross-platform desktop email client.
 vendor: "Arne K. and the Pelton contributors"
-homepage: "https://github.com/TRC-Loop/Pelton"
+homepage: "https://github.com/peltonapp/Pelton"
 license: GPL-3.0-or-later
 
 contents:

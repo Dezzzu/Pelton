@@ -22,13 +22,13 @@ description: Install Pelton on Windows.
 Download the installer from 
 [pelton.app/download](https://pelton.app/download)
 or from 
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest)
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest)
 
 - [x] Download Installer
 
 ??? info "Portable Installations and Package Managers (Winget/Chocolatey)"
     Portable `.exe`'s are not yet available but are in the works: 
-    [#377](https://github.com/TRC-Loop/Pelton/issues/377).
+    [#377](https://github.com/peltonapp/Pelton/issues/377).
 
     Until then, a workaround would be either:
 
@@ -36,7 +36,7 @@ or from
     2. Install Pelton and grab the `.exe` from the installation directory.
     ---
     Pelton is not yet in the Chocolatey or Winget registry.
-    However, this will be done in the future. See [#376](https://github.com/TRC-Loop/Pelton/issues/376)
+    However, this will be done in the future. See [#376](https://github.com/peltonapp/Pelton/issues/376)
 
 !!! tip "Verify Checksum"
     It's **highly recommended** to verify the Checksum (SHA-256 hash) of the file you've downloaded.

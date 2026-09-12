@@ -9,8 +9,8 @@ site_name = "Pelton Docs"
 site_description = "Documentation for Pelton, the privacy-focused email client."
 site_author = "Arne K."
 site_url = "https://docs.pelton.app/"
-repo_url = "https://github.com/TRC-Loop/Pelton"
-repo_name = "TRC-Loop/Pelton"
+repo_url = "https://github.com/peltonapp/Pelton"
+repo_name = "peltonapp/Pelton"
 edit_uri = "edit/main/docs/"
 
 copyright = """
@@ -120,7 +120,7 @@ toggle.name = "Switch to light mode"
 
 [[project.extra.social]]
 icon = "tabler/brand-github"
-link = "https://github.com/TRC-Loop/Pelton"
+link = "https://github.com/peltonapp/Pelton"
 
 [[project.extra.social]]
 icon = "tabler/brand-discord"

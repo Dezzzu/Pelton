@@ -6,8 +6,8 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/logging"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func TestDebugForced(t *testing.T) {

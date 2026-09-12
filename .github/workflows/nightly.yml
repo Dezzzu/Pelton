@@ -432,7 +432,7 @@ jobs:
           > `DISCLAIMER.md`.
           >
           > If you want a working email client, download a
-          > [real release](https://github.com/TRC-Loop/Pelton/releases/latest)
+          > [real release](https://github.com/peltonapp/Pelton/releases/latest)
           > instead.
 
           ### Installing alongside a normal Pelton
@@ -453,7 +453,7 @@ jobs:
             echo ""
             echo "---"
             echo ""
-            echo "Built from \`dev\` at [\`$SHORT_SHA\`](https://github.com/TRC-Loop/Pelton/commit/$SHA)."
+            echo "Built from \`dev\` at [\`$SHORT_SHA\`](https://github.com/peltonapp/Pelton/commit/$SHA)."
           } >> notes.md
 
           gh release create "$TAG" \

@@ -1,6 +1,6 @@
 package desktop
 
-import "github.com/TRC-Loop/Pelton/internal/storage"
+import "github.com/peltonapp/Pelton/internal/storage"
 
 // AddressBookEntryDTO is one autocomplete/contact entry for the frontend.
 type AddressBookEntryDTO struct {

@@ -9,8 +9,8 @@ import (
 	"testing"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
-	"github.com/TRC-Loop/Pelton/internal/virustotal"
+	"github.com/peltonapp/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/virustotal"
 )
 
 func newVTTestApp(t *testing.T) *App {
