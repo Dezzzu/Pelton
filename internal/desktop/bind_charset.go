@@ -1,7 +1,7 @@
 package desktop
 
 import (
-	"github.com/TRC-Loop/Pelton/internal/charsetguess"
+	"github.com/peltonapp/Pelton/internal/charsetguess"
 )
 
 // settingCharsetFallback is how text with no usable charset is read: "auto",

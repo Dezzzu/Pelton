@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/logging"
 )
 
 func newDevToolsApp(t *testing.T) *App {

@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/crypto"
-	"github.com/TRC-Loop/Pelton/internal/smtp"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/crypto"
+	"github.com/peltonapp/Pelton/internal/smtp"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Unsubscribe support (#71). Preference order per the List-Unsubscribe headers

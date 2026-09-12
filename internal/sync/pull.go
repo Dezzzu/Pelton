@@ -7,11 +7,11 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	"github.com/TRC-Loop/Pelton/internal/crypto"
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/logging"
-	"github.com/TRC-Loop/Pelton/internal/phishing"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/crypto"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/phishing"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // imapFlagsToStorage maps the imap flag list to the storage bitmask, keeping

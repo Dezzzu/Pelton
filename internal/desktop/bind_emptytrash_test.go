@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func newTrashTestApp(t *testing.T) *App {

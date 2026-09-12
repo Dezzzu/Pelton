@@ -7,7 +7,7 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // repairBatch caps how many mangled messages one folder sync refetches. The

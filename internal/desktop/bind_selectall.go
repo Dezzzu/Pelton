@@ -4,7 +4,7 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/search"
+	"github.com/peltonapp/Pelton/internal/search"
 )
 
 // selectAllCap is the most ids one select-all will hand back. A selection is an

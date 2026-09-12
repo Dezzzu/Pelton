@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/smtp"
+	"github.com/peltonapp/Pelton/internal/smtp"
 )
 
 // ErrSendAtInvalid is returned when a ComposeRequest.SendAt string does not

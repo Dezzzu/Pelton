@@ -9,9 +9,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/mcpserver"
-	"github.com/TRC-Loop/Pelton/internal/search"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/mcpserver"
+	"github.com/peltonapp/Pelton/internal/search"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // MCP settings keys. The server is off unless settingMCPEnabled is "true"; the

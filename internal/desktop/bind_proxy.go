@@ -9,9 +9,9 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/credentials"
-	"github.com/TRC-Loop/Pelton/internal/proxy"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/credentials"
+	"github.com/peltonapp/Pelton/internal/proxy"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // proxyTestTarget is the host:port the connection test dials through the proxy.

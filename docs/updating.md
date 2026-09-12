@@ -39,7 +39,7 @@ platform instructions below to actually update.
 
 Download the newer `.dmg` from
 [pelton.app/download](https://pelton.app/download) or
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest) and
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest) and
 drag it over the existing app in Applications, the same as a first install.
 See [Install on macOS](install/macos.md) for the full walkthrough, including
 verifying the checksum and getting past Gatekeeper again.
@@ -48,7 +48,7 @@ verifying the checksum and getting past Gatekeeper again.
 
 Download and run the newer installer from
 [pelton.app/download](https://pelton.app/download) or
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest). It
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest). It
 installs over the existing version. See
 [Install on Windows](install/windows.md) for the full walkthrough.
 
@@ -95,7 +95,7 @@ Pelton's packaging across distros and package managers.
 
 There's no repo to pull updates from. Download the newer `.deb` or `.rpm`
 from [pelton.app/download](https://pelton.app/download) or
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest),
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest),
 verify its checksum, and install it the same way as the first time
 (`dpkg -i` / `rpm -i`); it replaces the existing version. See
 [Install on Linux](install/linux.md) for the full steps.
@@ -112,7 +112,7 @@ Re-run the same command you used to install, pointing at the new release
 tag:
 
 ```bash
-nix profile install github:TRC-Loop/Pelton/v2026.5
+nix profile install github:peltonapp/Pelton/v2026.5
 ```
 
 This replaces the previous profile entry. Don't point it at the bare repo

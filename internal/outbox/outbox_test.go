@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // newTestQueue opens a real migrated store in a temp dir and seeds one account,

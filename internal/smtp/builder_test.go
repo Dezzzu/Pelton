@@ -6,7 +6,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/crypto"
+	"github.com/peltonapp/Pelton/internal/crypto"
 )
 
 func baseMessage() *Message {

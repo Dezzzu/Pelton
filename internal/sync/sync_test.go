@@ -3,7 +3,7 @@ package sync
 import (
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func local(uid uint32, flags storage.Flag, pendingFlags, pendingDelete bool) *LocalMessage {

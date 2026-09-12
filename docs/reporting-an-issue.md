@@ -6,9 +6,9 @@ description: How to report a bug, request a feature, or flag a packaging or tran
 # Reporting an issue
 
 Bugs, feature requests, packaging problems, and translation issues are all
-tracked on [GitHub Issues](https://github.com/TRC-Loop/Pelton/issues). Open
+tracked on [GitHub Issues](https://github.com/peltonapp/Pelton/issues). Open
 a new one at
-[github.com/TRC-Loop/Pelton/issues/new/choose](https://github.com/TRC-Loop/Pelton/issues/new/choose)
+[github.com/peltonapp/Pelton/issues/new/choose](https://github.com/peltonapp/Pelton/issues/new/choose)
 and pick the template that fits:
 
 - **Bug report**, something isn't working as expected.

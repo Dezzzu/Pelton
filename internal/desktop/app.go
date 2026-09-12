@@ -15,13 +15,13 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/configsync"
-	"github.com/TRC-Loop/Pelton/internal/logging"
-	"github.com/TRC-Loop/Pelton/internal/mcpserver"
-	"github.com/TRC-Loop/Pelton/internal/outbox"
-	"github.com/TRC-Loop/Pelton/internal/proxy"
-	"github.com/TRC-Loop/Pelton/internal/search"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/configsync"
+	"github.com/peltonapp/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/mcpserver"
+	"github.com/peltonapp/Pelton/internal/outbox"
+	"github.com/peltonapp/Pelton/internal/proxy"
+	"github.com/peltonapp/Pelton/internal/search"
+	"github.com/peltonapp/Pelton/internal/storage"
 	"github.com/wailsapp/wails/v2/pkg/menu"
 )
 

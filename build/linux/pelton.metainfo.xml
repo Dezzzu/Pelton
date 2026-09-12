@@ -45,9 +45,9 @@
   </keywords>
 
   <url type="homepage">https://pelton.app</url>
-  <url type="bugtracker">https://github.com/TRC-Loop/Pelton/issues</url>
+  <url type="bugtracker">https://github.com/peltonapp/Pelton/issues</url>
   <url type="help">https://docs.pelton.app</url>
-  <url type="vcs-browser">https://github.com/TRC-Loop/Pelton</url>
+  <url type="vcs-browser">https://github.com/peltonapp/Pelton</url>
 
   <content_rating type="oars-1.1" />
 
@@ -59,19 +59,19 @@
   -->
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/TRC-Loop/Pelton/main/docs/assets/screenshots/screenshot-inbox-dark.png</image>
+      <image>https://raw.githubusercontent.com/peltonapp/Pelton/main/docs/assets/screenshots/screenshot-inbox-dark.png</image>
       <caption>The unified inbox with a message open in the reading pane</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/TRC-Loop/Pelton/main/docs/assets/screenshots/screenshot-inbox-light.png</image>
+      <image>https://raw.githubusercontent.com/peltonapp/Pelton/main/docs/assets/screenshots/screenshot-inbox-light.png</image>
       <caption>Light mode, with every account's mailboxes and saved views</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/TRC-Loop/Pelton/main/docs/assets/screenshots/screenshot-message-actions.png</image>
+      <image>https://raw.githubusercontent.com/peltonapp/Pelton/main/docs/assets/screenshots/screenshot-message-actions.png</image>
       <caption>Reply, colour tags, snooze and move from the message menu</caption>
     </screenshot>
     <screenshot>
-      <image>https://raw.githubusercontent.com/TRC-Loop/Pelton/main/docs/assets/screenshots/screenshot-compose.png</image>
+      <image>https://raw.githubusercontent.com/peltonapp/Pelton/main/docs/assets/screenshots/screenshot-compose.png</image>
       <caption>Composing in markdown, with send later</caption>
     </screenshot>
   </screenshots>

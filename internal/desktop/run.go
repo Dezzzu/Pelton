@@ -10,8 +10,8 @@ import (
 	"embed"
 	"os"
 
-	"github.com/TRC-Loop/Pelton/internal/logging"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/storage"
 	"github.com/wailsapp/wails/v2"
 	"github.com/wailsapp/wails/v2/pkg/options"
 	"github.com/wailsapp/wails/v2/pkg/options/assetserver"

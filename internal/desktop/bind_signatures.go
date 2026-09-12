@@ -1,7 +1,7 @@
 package desktop
 
 import (
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // signatures: reusable header/footer blocks the user manages in settings, assigns

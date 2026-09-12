@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Native OS notifications for new mail (#126). Delivery is per platform:

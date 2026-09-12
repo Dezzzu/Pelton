@@ -8,7 +8,7 @@ import (
 	"mime/quotedprintable"
 	"strings"
 
-	"github.com/TRC-Loop/Pelton/internal/crypto"
+	"github.com/peltonapp/Pelton/internal/crypto"
 )
 
 const (

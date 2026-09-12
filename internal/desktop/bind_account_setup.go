@@ -7,11 +7,11 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/autoconfig"
-	"github.com/TRC-Loop/Pelton/internal/credentials"
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/oauth"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/autoconfig"
+	"github.com/peltonapp/Pelton/internal/credentials"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/oauth"
+	"github.com/peltonapp/Pelton/internal/storage"
 	goimap "github.com/emersion/go-imap/v2"
 	wailsruntime "github.com/wailsapp/wails/v2/pkg/runtime"
 )

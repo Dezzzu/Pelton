@@ -64,7 +64,7 @@ Pelton will now start. Go through the Onboarding wizard. To add your first mailb
 Download the `.deb` from
 [pelton.app/download](https://pelton.app/download)
 or from
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest)
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest)
 
 - [x] Download the `.deb`
 
@@ -144,7 +144,7 @@ repo), you can install the `.rpm` directly.
 Download the `.rpm` from
 [pelton.app/download](https://pelton.app/download)
 or from
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest)
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest)
 
 - [x] Download the `.rpm`
 
@@ -195,7 +195,7 @@ support, or if you'd rather run Pelton without installing it system-wide.
 Download the binary from
 [pelton.app/download](https://pelton.app/download)
 or from
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest)
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest)
 
 - [x] Download the binary
 
@@ -240,13 +240,13 @@ Pelton will now start. Go through the Onboarding wizard. To add your first mailb
 Pelton ships a flake. Point it at a release tag, not the bare repo:
 
 ```bash
-nix run github:TRC-Loop/Pelton/v2026.4
+nix run github:peltonapp/Pelton/v2026.4
 ```
 
 Or install it into your profile:
 
 ```bash
-nix profile install github:TRC-Loop/Pelton/v2026.4
+nix profile install github:peltonapp/Pelton/v2026.4
 ```
 
 - [x] Run or install via the flake

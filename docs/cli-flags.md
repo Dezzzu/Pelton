@@ -94,7 +94,7 @@ pelton --potatoes-are-nice
 
 !!! bug
     *Demo mode is still a bit buggy so your emails show up first, just click into an Inbox/Folder and you'll get
-    the actual demo mailbox.* Issue: [#378](https://github.com/TRC-Loop/Pelton/issues/378)
+    the actual demo mailbox.* Issue: [#378](https://github.com/peltonapp/Pelton/issues/378)
     
     Demo Mode does not override your e-mails. It's purely cosmetic.
 

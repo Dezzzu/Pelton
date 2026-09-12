@@ -6,7 +6,7 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	"github.com/TRC-Loop/Pelton/internal/charsetguess"
+	"github.com/peltonapp/Pelton/internal/charsetguess"
 )
 
 // formatAddresses renders an address list as `Name <user@host>, ...`. A display

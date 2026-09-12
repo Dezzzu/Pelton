@@ -3,9 +3,9 @@ package desktop
 import (
 	"errors"
 
-	"github.com/TRC-Loop/Pelton/internal/credentials"
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/credentials"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // errEmptyPassword rejects a blank password rather than storing one that can

@@ -8,8 +8,8 @@ import (
 	"strings"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/search"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/search"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // maxViewMatches caps how many messages a single view resolves to. It bounds the

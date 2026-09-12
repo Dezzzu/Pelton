@@ -9,8 +9,8 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/TRC-Loop/Pelton/internal/mailview"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/mailview"
+	"github.com/peltonapp/Pelton/internal/storage"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 )
 

@@ -25,7 +25,7 @@ const (
 	updateCheckWeekly  = "weekly"
 	updateCheckMonthly = "monthly"
 
-	latestReleaseAPI = "https://api.github.com/repos/TRC-Loop/Pelton/releases/latest"
+	latestReleaseAPI = "https://api.github.com/repos/peltonapp/Pelton/releases/latest"
 )
 
 // UpdateCheckResult is returned by a manual check and carried on

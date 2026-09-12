@@ -22,13 +22,13 @@ description: Install Pelton on macOS.
 Download the installer from 
 [pelton.app/download](https://pelton.app/download)
 or from 
-[GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest)
+[GitHub Releases](https://github.com/peltonapp/Pelton/releases/latest)
 
 - [x] Download DMG
 
 ??? info "Portable Installations and Package Managers (Homebrew)"
     Portable `.app`'s are not yet available but are in the works: 
-    [#377](https://github.com/TRC-Loop/Pelton/issues/377).
+    [#377](https://github.com/peltonapp/Pelton/issues/377).
 
     Until then, a workaround would be either:
 
@@ -78,7 +78,7 @@ You will probably run into Gatekeeper not allowing you to run Pelton. It might l
     macOS only allows apps signed and notarized by Apple to open without a warning.
     Notarization requires an Apple Developer Program membership, which costs money every year.
 
-    This is going to be fixed in the future, see [#97](https://github.com/TRC-Loop/Pelton/issues/97).
+    This is going to be fixed in the future, see [#97](https://github.com/peltonapp/Pelton/issues/97).
 
 To allow Pelton to run, hit `Done`. Then launch `System Settings` and navigate to `Privacy & Security`.
 Scroll down until you see Pelton and the `Open Anyway` button. Press it.

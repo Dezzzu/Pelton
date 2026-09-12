@@ -3,7 +3,7 @@ package desktop
 import (
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // layoutTestFolder creates an account with two folders and returns their ids.

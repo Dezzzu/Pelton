@@ -14,7 +14,7 @@ description: |
   Untested nightly build of Pelton, the open-source desktop email client.
   Not a release. Do not use it with your real inbox.
 vendor: "Arne K. and the Pelton contributors"
-homepage: "https://github.com/TRC-Loop/Pelton"
+homepage: "https://github.com/peltonapp/Pelton"
 license: GPL-3.0-or-later
 
 contents:

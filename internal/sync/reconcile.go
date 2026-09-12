@@ -12,7 +12,7 @@ package sync
 import (
 	"slices"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Conflict policy, documented here so it is obvious and easy to change later:

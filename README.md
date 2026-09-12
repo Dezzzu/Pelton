@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/TRC-Loop/Pelton/13f56136136bc00b9c8721dc2042fc9c84e1b3a7/.github/pelton-large-bg.png" alt="Pelton Banner">
+  <img src="https://raw.githubusercontent.com/peltonapp/Pelton/13f56136136bc00b9c8721dc2042fc9c84e1b3a7/.github/pelton-large-bg.png" alt="Pelton Banner">
 </p>
 
 
 <p align="center">
-  <a href="https://github.com/TRC-Loop/Pelton/blob/main/LICENSE">
-    <img src="https://img.shields.io/github/license/TRC-Loop/Pelton?style=for-the-badge&color=blue" alt="License: GPL-3.0">
+  <a href="https://github.com/peltonapp/Pelton/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/peltonapp/Pelton?style=for-the-badge&color=blue" alt="License: GPL-3.0">
   </a>
   <a href="#-versioning">
     <img src="https://img.shields.io/badge/CalVer-YYYY.Q.INCR-22bfda?style=for-the-badge" alt="CalVer YYYY.Q.INCR">
@@ -14,17 +14,17 @@
   <a href="https://discord.gg/UzPNGZYy6V">
     <img src="https://img.shields.io/badge/Discord-Join_Community-7289DA?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
   </a>
-  <a href="https://github.com/TRC-Loop/Pelton/issues">
-    <img src="https://img.shields.io/github/issues/TRC-Loop/Pelton?style=for-the-badge" alt="Issues">
+  <a href="https://github.com/peltonapp/Pelton/issues">
+    <img src="https://img.shields.io/github/issues/peltonapp/Pelton?style=for-the-badge" alt="Issues">
   </a>
-  <a href="https://github.com/TRC-Loop/Pelton/pulls">
+  <a href="https://github.com/peltonapp/Pelton/pulls">
     <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=for-the-badge" alt="PRs Welcome">
   </a>
-  <a href="https://github.com/TRC-Loop/Pelton/pulls">
-    <img src="https://img.shields.io/github/downloads/TRC-Loop/Pelton/total?style=for-the-badge" alt="PRs Welcome">
+  <a href="https://github.com/peltonapp/Pelton/pulls">
+    <img src="https://img.shields.io/github/downloads/peltonapp/Pelton/total?style=for-the-badge" alt="PRs Welcome">
   </a>
-  <a href="https://github.com/TRC-Loop/Pelton/pulls">
-    <img src="https://img.shields.io/github/v/release/TRC-Loop/Pelton?style=for-the-badge&label=Version" alt="PRs Welcome">
+  <a href="https://github.com/peltonapp/Pelton/pulls">
+    <img src="https://img.shields.io/github/v/release/peltonapp/Pelton?style=for-the-badge&label=Version" alt="PRs Welcome">
   </a>
 </p>
 
@@ -142,7 +142,7 @@ A `.zip` of the raw `.app` (`Pelton-<version>-macos-<arch>-app.zip`) is also att
 
 ### <img src="https://api.iconify.design/tabler/brand-windows.svg?color=white" width="26" style="vertical-align: -4px;"> Windows
 
-1. Download the latest installer from https://github.com/TRC-Loop/Pelton/releases/latest.
+1. Download the latest installer from https://github.com/peltonapp/Pelton/releases/latest.
 2. Run it. Since the build is unsigned, Windows SmartScreen may show an "unrecognized app" warning the first time. Click **More info** then **Run anyway**. This warning fades on its own as the file builds up download reputation.
 3. The installer walks you through:
    - the GPL-3.0 license
@@ -184,7 +184,7 @@ sudo dnf install pelton
 On other distributions, build from source (needs Go, Node/pnpm, and the Wails CLI. See `make run` / `make build-linux` in the `Makefile`):
 
 ```sh
-git clone https://github.com/TRC-Loop/Pelton.git
+git clone https://github.com/peltonapp/Pelton.git
 cd Pelton
 make build-linux
 ```
@@ -223,7 +223,7 @@ Contributions are welcome. Whether you are fixing bugs, refining the UI layout, 
 
 ## <img src="https://api.iconify.design/tabler/file-certificate.svg?color=white" width="26" style="vertical-align: -4px;"> License
 
-Pelton is distributed under the **[GPL-3.0 License](https://github.com/TRC-Loop/Pelton/blob/main/LICENSE)**. See `LICENSE` for details.
+Pelton is distributed under the **[GPL-3.0 License](https://github.com/peltonapp/Pelton/blob/main/LICENSE)**. See `LICENSE` for details.
 
 Warranty and liability are set out in **[DISCLAIMER.md](DISCLAIMER.md)**, an additional term under GPLv3 section 7(a), published as well at [pelton.app/terms](https://pelton.app/terms). Pelton comes without warranty and you use it at your own risk: it connects to your real mailboxes, deletions can be permanent, and it is not a backup tool. Keep your own backup of anything you cannot afford to lose.
 
