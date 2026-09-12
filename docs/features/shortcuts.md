@@ -1,3 +1,8 @@
+---
+title: Shortcuts
+description: Pelton's default keyboard shortcuts, and how to rebind them.
+---
+
 # Shortcuts
 
 Pelton uses ++cmd++ on macOS and ++ctrl++ on Windows and Linux for the same bindings. The tables below write ++cmd++; substitute accordingly.
@@ -79,3 +84,7 @@ Two independent toggles for keyboard-centric use:
 
 - **App vim mode** (**Settings, Shortcuts**): `h`/`j`/`k`/`l` style navigation across the message list and panes.
 - **Compose vim mode** (**Settings, Composing**): vim keybindings inside the compose editor.
+
+## Need help?
+
+See [Support](../support.md).

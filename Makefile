@@ -1,6 +1,6 @@
 # Pelton - email client (Wails + Svelte)
 
-.PHONY: build build-mac build-win build-linux build-nix dmg run run-nightly app-dev dev clean tidy deps licenses icon disclaimer
+.PHONY: build build-mac build-win build-linux build-nix dmg run run-nightly app-dev dev clean tidy deps licenses icon disclaimer sync-docs
 
 # version string injected into the binary. it prefers the latest git tag (with a
 # short commit suffix on untagged commits) and falls back to "dev". it is wired
@@ -106,3 +106,9 @@ licenses:
 clean:
 	go clean
 	wails build -clean || true
+
+# regenerate docs/contributing/{guidelines,code-of-conduct,dco}.md from the
+# canonical CONTRIBUTING.md, CODE_OF_CONDUCT.md and DCO.md at the repo root.
+# run this after editing any of those three before building or serving docs.
+sync-docs:
+	scripts/sync-root-docs.sh

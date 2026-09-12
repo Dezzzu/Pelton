@@ -1,56 +1,52 @@
+---
+title: FAQ
+description: Frequently asked questions about Pelton.
+---
+
 # FAQ
 
-## macOS says the app could not be verified
+??? question "Which email providers does Pelton support?"
+    Pelton supports standard IMAP and SMTP, which covers the vast majority
+    of providers out of the box, see
+    [Setting up a mailbox](mailbox/index.md). Gmail, iCloud, Outlook,
+    Yahoo, Fastmail, and Purelymail all get a dedicated setup flow on top
+    of that. Because Pelton is FOSS, the community can add support for
+    more providers too.
 
-Pelton builds are not notarized (notarization requires a paid Apple developer account). Press **Done** in the dialog, then allow the app under **System Settings, Privacy & Security, Open Anyway**. The exact steps are in [Install](install.md); `xattr -cr /Applications/Pelton.app` in a terminal does the same in one step.
+??? question "Does Pelton work offline?"
+    Yes. You can configure Pelton to cache your newest emails locally (you
+    choose the timeframe), and you can explicitly mark specific emails to
+    be kept offline permanently.
 
-## Does Pelton phone home?
+??? question "Does Pelton support PGP/GPG encryption?"
+    Yes. See [Encryption keys](features/encryption.md).
 
-No. There is no telemetry and nothing to opt out of. The complete list of network connections Pelton can make:
+??? question "Where is my data actually stored?"
+    Your data stays entirely in your control. It's stored in a local
+    SQLite database on your machine, and on your original email provider's
+    server. Pelton doesn't host or route your data through any
+    third-party servers.
 
-- your own IMAP and SMTP servers, always
-- the GitHub releases API, only if you enable update checks (off by default)
-- BIMI and Gravatar lookups for sender avatars, unless you switch the avatar source to generated placeholders
-- remote images inside mails, only after you allow them (blocked by default)
-- VirusTotal, only if you enable the integration and supply your own API key (off by default, see [Scanning links and attachments](virustotal.md))
+??? question "Why use Wails and Go instead of Electron?"
+    Speed and memory efficiency. Go and Wails use significantly less RAM
+    than heavy Electron wrappers, while still giving a snappy,
+    cross-platform UI.
 
-Nothing else, ever. Themes with remote CSS references are flagged at import for exactly this reason.
+??? question "How does Pelton handle tracking pixels and remote images?"
+    This is entirely configurable. By default, remote images and tracking
+    pixels are blocked (similar to Thunderbird). A banner appears letting
+    you know images were blocked, and you can choose to load them for that
+    email if you want to.
 
-## A mail shows as gibberish, and it looks fine in another client
+??? question "Can I self-host or use a custom database path for sync?"
+    Pointing Pelton's SQLite database at a custom path (like a network
+    share) isn't recommended or fully tested yet, but it's planned.
 
-Some mail does not say which encoding its text uses, and some names one no
-table knows. Pelton works it out from the text itself, the same way other
-clients do, and marks the message with a small badge in the reading pane so you
-know it was a guess.
+??? question "Is there any telemetry or automated crash reporting?"
+    No. Pelton has zero telemetry. If you hit a crash or a bug, please
+    help out by [opening an issue](reporting-an-issue.md) yourself, Pelton
+    won't report it for you.
 
-If your mail keeps coming from one system that gets this wrong in the same way,
-you can pick a fixed encoding under **Settings, Display, Text encoding
-fallback** instead of leaving it on detection.
+## Need help?
 
-Mail that was already in your cache before this existed was stored broken and
-cannot be repaired locally, so Pelton fetches those messages from your server
-again, a few per sync.
-
-## How do I back up my accounts and settings?
-
-**Settings, Import / Export**. The export is a single JSON file with your settings, mailboxes and signatures. Mail credentials can be included too, encrypted with a password you choose. The cached mail itself is not part of the export; it re-syncs from your server after an import.
-
-## Gmail keeps rejecting my password
-
-Google refuses normal passwords for IMAP. Enable 2-Step Verification on your Google account, then create an app password at [myaccount.google.com/apppasswords](https://myaccount.google.com/apppasswords) and use that in Pelton. A smoother Gmail story is on the roadmap.
-
-## The interface was smaller than the window on Linux
-
-That was a WebKitGTK viewport bug, fixed in Pelton 1.0.7. Update via `dnf` or grab the latest release. If you ever need to debug rendering, clicking the version number in **Settings, About** toggles a viewport readout you can screenshot.
-
-## The menu bar language did not change until I restarted (Linux)
-
-Known platform limitation: rebuilding the native GTK menu live crashes inside the toolkit, so on Linux the menu picks up a language change at the next launch. An in-app menu bar that live-updates (and follows your theme) is planned.
-
-## Where does an update come from when I click "Check now"?
-
-The check compares your version against the latest tag on the public GitHub releases API and links you to the release page. Nothing is downloaded or installed automatically.
-
-## Can a theme mess with my mail or send data somewhere?
-
-Not silently. Themes cannot run scripts, icon SVGs are sanitized, token values are validated, and CSS network references require your explicit approval at import, where the raw CSS is shown first. If you decline, they are stripped from the installed copy. See [Themes](themes/index.md).
+See [Support](support.md).

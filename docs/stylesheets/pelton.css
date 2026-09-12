@@ -137,3 +137,32 @@
 .md-typeset .grid.cards > ul > li:hover {
   border-color: var(--pelton-accent);
 }
+
+.md-typeset .checklist .task-list-control {
+  cursor: pointer;
+}
+
+.md-typeset img.docs-banner {
+  border-radius: 24px;
+}
+
+/* platform-keys.js adds one of these classes to <html>; show only the
+   matching shortcut so Mac readers see Cmd and everyone else sees Ctrl. */
+.os-key-mac,
+.os-key-other {
+  display: none;
+}
+
+html.os-mac .os-key-mac,
+html.os-other .os-key-other {
+  display: inline;
+}
+
+.md-typeset {
+  font-size: 1rem;
+}
+
+.md-typeset .admonition,
+.md-typeset details {
+  font-size: 0.85rem;
+}

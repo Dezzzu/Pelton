@@ -1,4 +1,26 @@
-# Contributor Covenant Code of Conduct
+# Code of Conduct
+
+## Short version
+
+Be respectful. Don't be rude to people asking questions, filing their
+first issue, or making mistakes. If you'd be embarrassed saying it
+face-to-face, don't type it.
+
+Assume good faith. When something someone wrote could be read two ways,
+pick the charitable reading. Non-native English speakers sometimes sound
+blunt when they're being neutral. New contributors miss things because
+they haven't read the docs yet, not because they're disrespecting you.
+Disagree on ideas, not people, "this approach has a race condition" is
+fine, "you clearly don't understand concurrency" is not.
+
+Targeted harassment, discrimination, threats, or doxxing get you banned
+outright, no warnings, no debate. Everything else follows the enforcement
+ladder further down this document.
+
+Report problems to [conduct@pelton.app](mailto:conduct@pelton.app).
+Reports are handled privately.
+
+The rest of this document is the full, formal version.
 
 ## Our Pledge
 
@@ -114,7 +136,8 @@ the community.
 
 ## Attribution
 
-This Code of Conduct is adapted from the [Contributor Covenant][homepage],
+The "Short version" section above is Pelton's own. Everything from "Our
+Pledge" onward is adapted from the [Contributor Covenant][homepage],
 version 2.0, available at
 https://www.contributor-covenant.org/version/2/0/code_of_conduct.html.
 
