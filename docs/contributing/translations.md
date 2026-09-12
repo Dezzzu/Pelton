@@ -12,7 +12,7 @@ description: How Pelton's UI strings are localized and how to add or improve a t
 ## Where translations live
 
 UI strings live in `frontend/src/lib/locales/`, one TypeScript file per
-language: `en.ts`, `de.ts`, `fr.ts`, `nl.ts`, `es.ts`, `pl.ts`. Each file
+language: `en.ts`, `de.ts`, `fr.ts`, `nl.ts`, `es.ts`, `pl.ts`, `tr.ts`. Each file
 exports a flat `Record<string, string>` keyed by a dotted, feature-prefixed
 key, for example:
 
@@ -44,7 +44,7 @@ keys with a translation for that language.
 There's no build step to run and no key-enforcement check, a locale file
 can be missing a key without failing anything, it just falls back silently.
 So if you're adding a **new** key (as part of a feature, not a
-translation fix), add it to all six locale files, not just `en.ts`. A
+translation fix), add it to all seven locale files, not just `en.ts`. A
 reasonable best-effort translation is fine for languages you don't speak
 natively, flag it in your pull request if you're unsure.
 
@@ -55,11 +55,28 @@ There's no scaffolding command for this yet:
 1. Copy `en.ts` to a new file named after the language's
    [ISO 639-1](https://en.wikipedia.org/wiki/List_of_ISO_639_language_codes)
    code, e.g. `it.ts` for Italian.
-2. Translate every value, keeping every key unchanged.
-3. Register it in `frontend/src/lib/i18n.ts`, alongside the existing
-   `import('./locales/xx')` entries.
+2. Translate every value, keeping every key unchanged. Watch for strings
+   with an interpolated `{variable}`: some languages need the sentence
+   reordered so a case suffix or particle doesn't glue onto the
+   placeholder (Turkish's `tr.ts` rephrases "Move to {folder}" as
+   "{folder} klasörüne taşı" for this reason).
+3. Register the language everywhere its code is checked, not just in
+   `i18n.ts`:
+      - `frontend/src/lib/i18n.ts`: add it to the `Locale` type, the
+        `locales` array, `localeNames` (the language's own spelling of
+        its name, not a translation), and the `loaders` map
+        (`import('./locales/xx')`).
+      - `frontend/src/lib/flags.ts`: add a `defaultCountry` entry so the
+        phone/region picker has a sensible default for it.
+      - `internal/desktop/menu_i18n.go`: add a native-menu string block
+        (used for the OS menu bar, which isn't rendered by the frontend).
+      - `internal/desktop/notify.go`: add new-mail notification strings.
+      - `internal/desktop/bind_locales.go`: add it to `builtinLocales`, so
+        it's accepted as a base for a user-defined custom locale.
 4. Open a pull request, a native or fluent speaker reviewing it is
-   welcome but not required to get it merged.
+   welcome but not required to get it merged. If the first pass was
+   drafted with AI assistance, say so in the PR and have it reviewed
+   in-app by a native or fluent speaker before merging.
 
 ## Need help?
 

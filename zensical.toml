@@ -43,7 +43,7 @@ nav = [
     { "Shortcuts" = "features/shortcuts.md" },
     { "Command palette" = "features/command-palette.md" },
     { "Scanning links and attachments" = "features/virustotal.md" },
-    { "Encryption keys" = "features/encryption.md" },
+    { "Encryption" = "features/encryption.md" },
   ] },
   { "Themes" = [
     { "Overview" = "themes/index.md" },

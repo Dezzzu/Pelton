@@ -9,7 +9,7 @@ Pick your platform:
 
 <div class="grid cards" markdown>
 
--   __Windows__ (WIP)
+-   __Windows__
 
     ---
 

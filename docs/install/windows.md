@@ -3,7 +3,7 @@ title: Install on Windows
 description: Install Pelton on Windows.
 ---
 
-# Windows (WIP)
+# Windows
 
 ## Checklist
 <div class="checklist" markdown>
@@ -23,6 +23,8 @@ Download the installer from
 [pelton.app/download](https://pelton.app/download)
 or from 
 [GitHub Releases](https://github.com/TRC-Loop/Pelton/releases/latest)
+
+- [x] Download Installer
 
 ??? info "Portable Installations and Package Managers (Winget/Chocolatey)"
     Portable `.exe`'s are not yet available but are in the works: 
@@ -48,8 +50,41 @@ or from
     
     **How to verify**
 
-    When downloading from [pelton.app/download](https://pelton.app/download), you will get a command which will
-    verify the checksums.
+    When downloading from [pelton.app/download](https://pelton.app/download), you will get commands which will
+    verify the checksum: ![The download page's checksum verify commands for PowerShell and Command Prompt](../assets/screenshots/screenshot-download-installer-checksum.png)
+    To run one, open PowerShell or Command Prompt, navigate to your downloads folder with
+    `cd $env:USERPROFILE\Downloads` (PowerShell) or `cd %USERPROFILE%\Downloads` (Command Prompt), then run the
+    command from the website.
+
+    If it says `Match` then you can **proceed** with the installation and everything is fine.
+
+    If it says `Mismatch` then the file got corrupted or was tampered with. **Do not proceed.** You can try repeating the download,
+    or [reach out for help](../support.md) if it keeps happening.
+
+    - [x] Verify SHA-256 Checksum
+
+### 2. Installing Pelton
+
+Run the downloaded file. The filename should look something like this: `Pelton-<VERSION>-windows-amd64-installer.exe`.
+
+- [x] Run Installer
+
+You will probably run into SmartScreen not allowing you to run Pelton. It might look something like this:
+
+![Windows SmartScreen warning: "Windows protected your PC", with "More info" highlighted](../assets/screenshots/screenshot-windows-smartscreen-more-info.png){ width=350 }
+
+???+ info "Why is SmartScreen not allowing Pelton to run?"
+    SmartScreen flags any app it doesn't yet recognize as coming from a trusted publisher. Code-signing
+    certificates that satisfy SmartScreen cost money every year, and enough people need to run the app before
+    SmartScreen starts trusting it automatically.
+
+Click `More info`, then click `Run anyway`:
+
+![Windows SmartScreen warning expanded, with "Run anyway" highlighted](../assets/screenshots/screenshot-windows-smartscreen-run-anyway.png){ width=350 }
+
+- [x] Allow through SmartScreen
+
+Pelton will now start. Go through the Onboarding wizard. To add your first mailbox, see [Setting up a mailbox](../mailbox/index.md).
 
 ## Need help?
 
