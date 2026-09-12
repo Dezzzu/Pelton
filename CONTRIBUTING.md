@@ -5,7 +5,6 @@
 *Before Contributing please read the Information below.*
 
 **There are multiple ways you can Contribute to the Pelton Project:**
-
 1. [Submit a Theme ↗](https://github.com/TRC-Loop/pelton-themes/issues/new?template=submit_theme.yml)
 2. [Contribute to the Website (pelton.app) ↗](https://github.com/TRC-Loop/pelton.app)
 3. [Submitting a Feature (Request)](https://github.com/TRC-Loop/Pelton/issues)
@@ -15,7 +14,15 @@
    
 ## Code of Conduct
 
-Participation in Pelton is governed by the [Code of Conduct](./CODE_OF_CONDUCT.md). Read it before opening an issue or PR, the short version at the top only takes a minute.
+The rules are short because they have to be remembered, not looked up. Be respectful. Don't be rude to people asking questions, filing their first issue, or making mistakes. If you'd be embarrassed saying it face-to-face, don't type it.
+
+Assume good faith. When something someone wrote could be read two ways, pick the charitable reading. Non-native English speakers sometimes sound blunt when they're being neutral. New contributors miss things because they haven't read the docs yet, not because they're disrespecting you. Ask before you assume. Disagree on ideas, not people. "This approach has a race condition" is fine. "You clearly don't understand concurrency" is not. Code can be wrong. People shouldn't be attacked for writing it.
+
+Zero tolerance for harassment or discrimination. Targeting someone for their race, gender, sexuality, religion, nationality, or disability, threatening, or doxxing anyone gets you banned from the project. No warnings, no debate.
+
+Report problems to [me@arne.sh ↗](mailto:me@arne.sh). Reports are handled privately.
+
+*TLDR; Be nice and responsible*
 
 ## AI-Assisted Development
 
@@ -29,7 +36,7 @@ You may use AI tools such as Claude Code, Codex, Aider, or similar. Fully autono
 
 AI can be used for writing code, but architecture and the way things should work, look, and be implemented has to come from a human.
 
-When working on the frontend, stick to Pelton's existing design, don't let AI introduce generic patterns like purple-blue gradients.
+When working on the frontend, stick to Pelton's existing design — don't let AI introduce generic patterns like purple-blue gradients.
 
 **Disclosure**
 
@@ -94,15 +101,14 @@ Each commit message should follow this format:
 ```
 
 **Common types:**
-
-- `feat`: a new feature
-- `fix`: a bug fix
-- `docs`: documentation-only changes
-- `style`: formatting, missing semicolons, etc. (no code logic change)
-- `refactor`: code change that neither fixes a bug nor adds a feature
-- `perf`: performance improvement
-- `test`: adding or correcting tests
-- `chore`: build process, tooling, dependency updates
+- `feat` — a new feature
+- `fix` — a bug fix
+- `docs` — documentation-only changes
+- `style` — formatting, missing semicolons, etc. (no code logic change)
+- `refactor` — code change that neither fixes a bug nor adds a feature
+- `perf` — performance improvement
+- `test` — adding or correcting tests
+- `chore` — build process, tooling, dependency updates
 
 **Examples:**
 ```text
@@ -123,7 +129,6 @@ Please keep the short description under ~72 characters, written in the imperativ
 ## Pelton-specific
 
 As Pelton is privacy focused you have a couple more rules:
-
 - No telemetry or phone-home (self-explanatory)
 - Any external request (except for IMAP/SMTP) must be off by default
   > If you add anything that even reaches out to any 3rd party server, it has to be off by default.
