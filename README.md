@@ -11,7 +11,7 @@
     <img src="https://img.shields.io/badge/CalVer-YYYY.Q.INCR-22bfda?style=for-the-badge" alt="CalVer YYYY.Q.INCR">
   </a>
   <img src="https://img.shields.io/badge/Language-Go-00ADD8?style=for-the-badge&logo=go" alt="Written in Go">
-  <a href="https://discord.gg/UzPNGZYy6V">
+  <a href="https://pelton.app/discord">
     <img src="https://img.shields.io/badge/Discord-Join_Community-7289DA?style=for-the-badge&logo=discord&logoColor=white" alt="Discord">
   </a>
   <a href="https://github.com/peltonapp/Pelton/issues">
@@ -28,13 +28,25 @@
   </a>
 </p>
 
+<p align="center">
+  <a href="https://alternativeto.net/software/pelton/about/?utm_source=badge&utm_medium=referral" target="_blank">
+    <img src="https://alternativeto.net/static/badges/badge-compact-color.svg"
+         alt="Pelton | AlternativeTo"
+         width="171" height="55"
+         style="width: 171px; height: 55px;" />
+  </a>
+  <a href="https://www.producthunt.com/products/pelton/launches/pelton?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-pelton" target="_blank" rel="noopener noreferrer">
+    <img alt="Pelton - An open-source/foss email client that respects your privacy | Product Hunt" width="250" height="54" src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1208738&theme=light&t=1789329951747">
+  </a>
+</p>
+
 <h3 align="center">An open-source email client built around your privacy, cross-platform with zero telemetry, fully yours.</h3>
 
 <h3 align="center">Install Guides</h3>
 
 <div align="center">
 
-| <img src="https://api.iconify.design/tabler/brand-apple.svg?color=white" width="18" style="vertical-align: -4px;"> [macOS](#-macos) | <img src="https://api.iconify.design/tabler/brand-windows.svg?color=white" width="18" style="vertical-align: -4px;"> [Windows](#-windows) | <img src="https://api.iconify.design/tabler/terminal-2.svg?color=white" width="18" style="vertical-align: -4px;"> [Linux](#-linux) |
+| <img src="https://api.iconify.design/tabler/brand-apple.svg?color=white" width="18" style="vertical-align: -4px;"> [macOS](https://docs.pelton.app/install/macos/) | <img src="https://api.iconify.design/tabler/brand-windows.svg?color=white" width="18" style="vertical-align: -4px;"> [Windows](https://docs.pelton.app/install/windows/) | <img src="https://api.iconify.design/tabler/terminal-2.svg?color=white" width="18" style="vertical-align: -4px;"> [Linux](https://docs.pelton.app/install/linux/) |
 |:---:|:---:|:---:|
 
 </div>
@@ -108,6 +120,7 @@ Pelton is a modern, Free and Open-Source Software (FOSS) email client written in
 
 <br>
 
+
 ## <img src="https://api.iconify.design/tabler/photo.svg?color=white" width="26" style="vertical-align: -4px;"> Gallery
 
 <img src="docs/assets/screenshots/screenshot-inbox-dark.png" alt="The unified inbox in dark mode, with a message open in the reading pane" width="100%">
@@ -126,70 +139,26 @@ Pelton is a modern, Free and Open-Source Software (FOSS) email client written in
 
 <p align="center"><em>Composing in plain text, markdown or rich text, with send later</em></p>
 
+## <img src="https://api.iconify.design/tabler/star.svg?color=white" width="26" style="vertical-align: -4px;"> Star History
+
+<a href="https://www.star-history.com/?repos=peltonapp%2Fpelton&type=timeline&legend=top-left">
+ <picture>
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/chart?repos=peltonapp/pelton&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/chart?repos=peltonapp/pelton&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/chart?repos=peltonapp/pelton&type=date&legend=top-left" />
+ </picture>
+</a>
+
 ## <img src="https://api.iconify.design/tabler/download.svg?color=white" width="26" style="vertical-align: -4px;"> Installation
 
-| <img src="https://api.iconify.design/tabler/brand-apple.svg?color=white" width="18" style="vertical-align: -4px;"> [macOS](#-macos) | <img src="https://api.iconify.design/tabler/brand-windows.svg?color=white" width="18" style="vertical-align: -4px;"> [Windows](#-windows) | <img src="https://api.iconify.design/tabler/terminal-2.svg?color=white" width="18" style="vertical-align: -4px;"> [Linux](#-linux) |
+| <img src="https://api.iconify.design/tabler/brand-apple.svg?color=white" width="18" style="vertical-align: -4px;"> [macOS](https://docs.pelton.app/install/macos/) | <img src="https://api.iconify.design/tabler/brand-windows.svg?color=white" width="18" style="vertical-align: -4px;"> [Windows](https://docs.pelton.app/install/windows/) | <img src="https://api.iconify.design/tabler/terminal-2.svg?color=white" width="18" style="vertical-align: -4px;"> [Linux](https://docs.pelton.app/install/linux/) |
 |:---:|:---:|:---:|
 
-
-### <img src="https://api.iconify.design/tabler/brand-apple.svg?color=white" width="26" style="vertical-align: -4px;"> macOS
-
-1. Download `Pelton-<version>-macos-applesilicon.dmg` (Apple Silicon / M-series Macs).
-2. Open the `.dmg` and drag `Pelton.app` into `Applications`.
-3. Since the build is unsigned, macOS Gatekeeper blocks the first launch with an "unidentified developer" warning. Right-click (or Control-click) `Pelton.app` in Applications and choose **Open**, then confirm in the dialog that appears. You only need to do this once; after that it opens normally, including from Spotlight or the Dock.
-
-A `.zip` of the raw `.app` (`Pelton-<version>-macos-<arch>-app.zip`) is also attached to each release if you'd rather not use the `.dmg`.
-
-### <img src="https://api.iconify.design/tabler/brand-windows.svg?color=white" width="26" style="vertical-align: -4px;"> Windows
-
-1. Download the latest installer from https://github.com/peltonapp/Pelton/releases/latest.
-2. Run it. Since the build is unsigned, Windows SmartScreen may show an "unrecognized app" warning the first time. Click **More info** then **Run anyway**. This warning fades on its own as the file builds up download reputation.
-3. The installer walks you through:
-   - the GPL-3.0 license
-   - the warranty and liability terms
-   - **install for all users** (needs admin, installs to Program Files) or **just me** (installs to AppData) (no admin needed)
-   - an optional desktop shortcut (Start Menu shortcut is always created)
-   - a "Launch Pelton" checkbox on the last page
-
-Windows on ARM is not supported yet.
-
-### <img src="https://api.iconify.design/tabler/terminal-2.svg?color=white" width="26" style="vertical-align: -4px;"> Linux
-
-**Currently supported:** `fedora (copr/dnf)`, `Arch (AUR)` – Thanks to [leeteral (AUR Maintainer)](https://leeism.com) [(Github)](https://github.com/leeteral)
+Refer to our [Documentation (docs.pelton.app)](https://docs.pelton.app/install/)
 
 [![Packaging status](https://repology.org/badge/vertical-allrepos/pelton.svg)](https://repology.org/project/pelton/versions)
 
-#### fedora
-
-Two ways to install, pick one:
-
-**Via `dnf` (recommended - gets updates automatically once you upgrade):**
-
-```sh
-sudo dnf copr enable arnek/Pelton
-sudo dnf install pelton
-```
-
-(Fedora's Copr is a community repo host; enabling it adds Pelton's repo to `dnf` so future releases show up as normal updates.)
-
-> [!NOTE]  
-> **Fedora <=42 is not supported**, even if you pin the chroot.
-> 
-> You will get an error like package not available.
-> 
-> Update your System folks! (You have to do it anyway so ig)
-
-### Other Linux distributions
-
-On other distributions, build from source (needs Go, Node/pnpm, and the Wails CLI. See `make run` / `make build-linux` in the `Makefile`):
-
-```sh
-git clone https://github.com/peltonapp/Pelton.git
-cd Pelton
-make build-linux
-```
-
-This produces a binary plus a `.desktop` launcher in `build/bin/`; copy the binary somewhere on your `PATH`, install the `.desktop` file to `~/.local/share/applications/`, and give it an icon named `pelton` (see `build/icons/`).
+*We also support copr (dnf). We also have rpm and deb packages as well as a generic binary. Find installation instructions [here (docs.pelton.app/install/linux](https://docs.pelton.app/install/linux/)*
 
 ## <img src="https://api.iconify.design/tabler/tag.svg?color=white" width="26" style="vertical-align: -4px;"> Versioning
 
