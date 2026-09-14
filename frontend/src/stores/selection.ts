@@ -127,6 +127,17 @@ export function leaveDeletedSavedView(viewId: number): void {
   }
 }
 
+// leaveMissingSavedView does the same for a View that is simply no longer in
+// the saved list, whatever became of it: deleted from another window, dropped
+// by a profile switch, or gone from the server. The delete button is not the
+// only way a View can stop existing under the list showing it.
+export function leaveMissingSavedView(ids: readonly number[]): void {
+  const sel = get(selection)
+  if (sel.kind === 'savedView' && !ids.includes(sel.viewId)) {
+    selectView('inbox', unifiedViewLabel('inbox'))
+  }
+}
+
 // selectFolder switches the list to a single account folder.
 export function selectFolder(folder: Folder): void {
   const sel: Selection = {
