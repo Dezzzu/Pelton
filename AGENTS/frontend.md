@@ -51,7 +51,20 @@ rendering as its own key for everyone on another language.
 
 ## Testing
 
-`pnpm run check` (svelte-check) must pass. There's no significant frontend
-test suite yet; when touching UI logic, verify manually via `make run`
+`pnpm run check` (svelte-check) and `pnpm run test` (vitest) must both pass. CI
+runs both.
+
+Tests live next to what they cover, as `*.test.ts`. The runner is vitest on
+jsdom, sharing the Vite config, so there is no second build setup. Component
+tests use `@testing-library/svelte`: query by role and label rather than by
+class, and drive the component with `@testing-library/user-event` instead of
+calling its internals. A component that reports through `createEventDispatcher`
+is listened to with mount's `events` option, since Svelte 5 removed `$on`.
+
+`pnpm run test:watch` reruns on save, `pnpm run test:coverage` reports coverage.
+
+jsdom is not the renderer Pelton ships on: the app runs in WKWebView and
+WebView2, so layout, real geometry and native behaviour are not covered here.
+When touching UI that depends on any of those, still verify via `make run`
 before calling a change done (a separate `PELTON_DEV` data dir is used
 automatically so this never touches a real install's accounts/mail/settings).
