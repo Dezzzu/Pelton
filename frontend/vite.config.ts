@@ -1,4 +1,4 @@
-import {defineConfig} from 'vite'
+import {defineConfig} from 'vitest/config'
 import {svelte} from '@sveltejs/vite-plugin-svelte'
 import {fileURLToPath} from 'node:url'
 
@@ -17,6 +17,9 @@ export default defineConfig({
     alias: {
       'tabler-nodes-outline': tablerNodesOutline,
     },
+    // under vitest, svelte otherwise resolves to its server build, where mount()
+    // does not exist and every component test fails before it renders.
+    ...(process.env.VITEST ? { conditions: ['browser'] } : {}),
   },
   build: {
     // the flag set is globbed whole so a new locale needs no asset work, and
@@ -24,5 +27,13 @@ export default defineConfig({
     // them into the picker's chunk. They stay files, so only the handful
     // actually rendered is ever read.
     assetsInlineLimit: (file) => (file.includes('flag-icons/flags/') ? false : undefined),
+  },
+  test: {
+    // jsdom throughout rather than per-file: the pure modules do not care, and
+    // one environment means a test can reach for the DOM without moving file.
+    environment: 'jsdom',
+    globals: true,
+    setupFiles: ['./src/test/setup.ts'],
+    include: ['src/**/*.test.ts'],
   },
 })
