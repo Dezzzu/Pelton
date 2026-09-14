@@ -352,6 +352,11 @@
   .search {
     position: relative;
     flex: 1;
+    /* without this the box refuses to shrink below the chips it contains: a
+       flex item's automatic minimum is its min-content, and the chips are
+       nowrap. The list column is a fixed width, so the bar grew straight over
+       the reading pane instead. The chips scroll inside .field. */
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: var(--space-2);
