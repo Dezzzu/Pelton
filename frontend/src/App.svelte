@@ -123,6 +123,7 @@
     bulkTrash,
     bulkArchive,
     reportArchiveExport,
+    dropDeleted,
   } from './lib/messageactions'
   import { buildCommands, mailCommands, type CommandContext, type MessageOp, type FolderOp } from './lib/commands'
   import { catalogByAction } from './lib/menuactions'
@@ -662,11 +663,8 @@
         case 'delete-message':
           await deleteMessage(msg.id)
           recordDeleted(msg)
-          removeFromList(msg.id)
           closeTab(msg.id)
-          if (get(openMessageId) === msg.id) {
-            openMessageId.set(null)
-          }
+          dropDeleted(msg.id)
           break
         case 'unsubscribe': {
           const detail = await getMessage(msg.id)
