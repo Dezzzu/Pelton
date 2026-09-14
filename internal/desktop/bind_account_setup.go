@@ -249,7 +249,7 @@ func (a *App) discoverFolders(account storage.Account) error {
 	if err != nil {
 		return err
 	}
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}
@@ -269,7 +269,7 @@ func (a *App) discoverFolders(account storage.Account) error {
 // ensureFolders discovers the folder tree over an already-connected client when
 // the account has no folder rows yet: accounts restored from a backup import,
 // or whose discovery failed during setup. With folders present it is a no-op.
-func (a *App) ensureFolders(client *pimap.Client, accountID int64) error {
+func (a *App) ensureFolders(client mailClient, accountID int64) error {
 	folders, err := a.store.ListFolders(a.ctx, accountID)
 	if err != nil {
 		return err

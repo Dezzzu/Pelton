@@ -242,7 +242,7 @@ func (a *App) syncAccountOnce(account storage.Account) error {
 	a.emit(EventSyncState, SyncStateEvent{Running: true})
 	defer a.emit(EventSyncState, SyncStateEvent{Running: false})
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}
@@ -267,7 +267,7 @@ func (a *App) syncAccountOnce(account storage.Account) error {
 // syncFolders runs the sync engine over each stored folder of an account,
 // emitting a progress event per folder and a new-mail event when one gained
 // messages.
-func (a *App) syncFolders(client *pimap.Client, accountID int64) error {
+func (a *App) syncFolders(client mailClient, accountID int64) error {
 	all, err := a.store.ListFolders(a.ctx, accountID)
 	if err != nil {
 		return err
@@ -371,7 +371,7 @@ func (a *App) findInboxFolder(accountID int64) (*storage.Folder, error) {
 // progress/new-mail events syncFolders would, without touching any other
 // folder on the account. Used by the idle push handler so a single INBOX
 // update does not pay for a full-account resync.
-func (a *App) syncOneFolder(client *pimap.Client, folder storage.Folder) error {
+func (a *App) syncOneFolder(client mailClient, folder storage.Folder) error {
 	// the idle push path reaches this directly, so it has to honour the
 	// exclusion too. An excluded INBOX is unusual but it is the user's call.
 	if folder.SyncExcluded {
@@ -425,7 +425,7 @@ func (a *App) idleSession(ctx context.Context, account storage.Account) error {
 		return err
 	}
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}
@@ -481,7 +481,7 @@ func (a *App) idleSession(ctx context.Context, account storage.Account) error {
 // newSyncEngine builds a sync engine for one account with the settings every
 // caller needs, including where deleted mail goes. Roles are resolved here
 // because the sync package does not know about them.
-func (a *App) newSyncEngine(client *pimap.Client, accountID int64) *psync.Engine {
+func (a *App) newSyncEngine(client mailClient, accountID int64) *psync.Engine {
 	engine := psync.NewEngine(client, a.store, a.log)
 	engine.ColorSync = a.boolSetting(settingFlagColorSync, false)
 	engine.InitialLimit = a.syncMessageLimit()
