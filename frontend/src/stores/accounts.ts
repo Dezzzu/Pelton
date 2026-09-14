@@ -46,3 +46,33 @@ export async function loadSidebar(): Promise<void> {
 // refreshSidebar reloads counts quietly. it reuses loadSidebar but is named for
 // intent at the call sites that react to sync events.
 export const refreshSidebar = loadSidebar
+
+// countSettleMs is how long a burst of local changes is allowed to run before
+// the counts are re-read. Long enough that a bulk delete of fifty messages is
+// one round trip rather than fifty, short enough to read as immediate.
+const countSettleMs = 200
+
+let countTimer: ReturnType<typeof setTimeout> | null = null
+
+// refreshCountsSoon re-reads the sidebar after a local change, coalescing a
+// burst into a single pass.
+//
+// Deleting a message, marking one read or moving one changes what the badges
+// should say, but nothing told the sidebar: it was only refreshed on sync
+// events, so a folder stayed bold and kept its unread count until the next
+// sync, and an already-triaged folder still looked like it needed attention.
+//
+// The counts are re-read rather than adjusted in place on purpose. Which
+// folders feed which unified view, and what counts as unread in each, is the
+// backend's rule; a second copy of it here would be one more thing to keep in
+// step. Reading is cheap, and loading() keeps the current data on screen, so
+// the sidebar never blanks while it happens.
+export function refreshCountsSoon(): void {
+  if (countTimer !== null) {
+    clearTimeout(countTimer)
+  }
+  countTimer = setTimeout(() => {
+    countTimer = null
+    void refreshSidebar()
+  }, countSettleMs)
+}

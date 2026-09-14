@@ -18,6 +18,7 @@ import {
 import { type AsyncState, idle, loading, ready, failed } from '../lib/async'
 import { errorMessage, push, toastError } from './toast'
 import { prefs } from './prefs'
+import { refreshCountsSoon } from './accounts'
 
 // how many rows we request per page.
 export const PAGE_SIZE = 50
@@ -419,6 +420,9 @@ export function removeFromList(id: number): void {
       total: removed ? Math.max(0, s.data.total - 1) : s.data.total,
     })
   })
+  // the row left a folder, so that folder's badge and every unified view it
+  // feeds are now wrong (#403).
+  refreshCountsSoon()
 }
 
 // restoreToList re-inserts a previously removed row (used by undo-delete),
@@ -434,6 +438,8 @@ export function restoreToList(summary: MessageSummary): void {
     const items = [...s.data.items, summary].sort((a, b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0))
     return ready({ ...s.data, items, total: s.data.total + 1 })
   })
+  // an undone delete puts the message back in its folder, badge included.
+  refreshCountsSoon()
 }
 
 // patchInList applies a partial update to one row, for optimistic flag changes.
@@ -447,4 +453,9 @@ export function patchInList(id: number, patch: Partial<MessageSummary>): void {
       items: s.data.items.map((m) => (m.id === id ? { ...m, ...patch } : m)),
     })
   })
+  // read and flagged are the two the sidebar counts, so a color or an offline
+  // pin changes nothing there and is not worth a round trip.
+  if (patch.seen !== undefined || patch.flagged !== undefined) {
+    refreshCountsSoon()
+  }
 }
