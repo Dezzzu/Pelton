@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"strings"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
 	"github.com/TRC-Loop/Pelton/internal/storage"
 )
 
@@ -94,7 +93,7 @@ func (a *App) CreateFolder(req CreateFolderRequest) (FolderDTO, error) {
 		return FolderDTO{}, fmt.Errorf("a folder name cannot contain %q", delim)
 	}
 
-	if err := a.withAccountIMAP(req.AccountID, func(client *pimap.Client) error {
+	if err := a.withAccountIMAP(req.AccountID, func(client mailClient) error {
 		return client.CreateFolder(path)
 	}); err != nil {
 		return FolderDTO{}, err
@@ -143,7 +142,7 @@ func (a *App) RenameFolder(id int64, name string) error {
 	}
 
 	newPath := renamedPath(folder.IMAPPath, name, delim)
-	if err := a.withAccountIMAP(folder.AccountID, func(client *pimap.Client) error {
+	if err := a.withAccountIMAP(folder.AccountID, func(client mailClient) error {
 		return client.RenameFolder(folder.IMAPPath, newPath)
 	}); err != nil {
 		return err
@@ -184,7 +183,7 @@ func (a *App) DeleteFolder(id int64) error {
 	if err != nil {
 		return err
 	}
-	if err := a.withAccountIMAP(folder.AccountID, func(client *pimap.Client) error {
+	if err := a.withAccountIMAP(folder.AccountID, func(client mailClient) error {
 		for i := len(targets) - 1; i >= 0; i-- {
 			if err := client.DeleteFolder(targets[i].IMAPPath); err != nil {
 				return err
@@ -243,7 +242,7 @@ func (a *App) EmptyTrash(folderID int64) (int, error) {
 
 	goSafe("counting unread mail", a.refreshViewCounts)
 	goSafe("emptying the trash", func() {
-		if err := a.withAccountIMAP(folder.AccountID, func(client *pimap.Client) error {
+		if err := a.withAccountIMAP(folder.AccountID, func(client mailClient) error {
 			return a.syncOneFolder(client, *folder)
 		}); err != nil {
 			a.log.Error("push emptied trash", "folder", folder.ID, "err", err)
@@ -308,7 +307,7 @@ func protectSpecialFolder(f storage.Folder) error {
 // withAccountIMAP runs fn against a logged-in session for an account, taking the
 // same lock sync uses so a folder operation never races a sync on the same
 // connection.
-func (a *App) withAccountIMAP(accountID int64, fn func(*pimap.Client) error) error {
+func (a *App) withAccountIMAP(accountID int64, fn func(mailClient) error) error {
 	account, err := a.store.GetAccount(a.ctx, accountID)
 	if err != nil {
 		return err
@@ -321,7 +320,7 @@ func (a *App) withAccountIMAP(accountID int64, fn func(*pimap.Client) error) err
 	syncMu.Lock()
 	defer syncMu.Unlock()
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}

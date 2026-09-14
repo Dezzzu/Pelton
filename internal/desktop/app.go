@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/TRC-Loop/Pelton/internal/configsync"
+	pimap "github.com/TRC-Loop/Pelton/internal/imap"
 	"github.com/TRC-Loop/Pelton/internal/logging"
 	"github.com/TRC-Loop/Pelton/internal/mcpserver"
 	"github.com/TRC-Loop/Pelton/internal/outbox"
@@ -71,6 +72,11 @@ type App struct {
 	// the call reaching a real server or the os keyring. nil means
 	// StartAccountSync, which is what the app always uses.
 	startAccount func(accountID int64) error
+	// newIMAPClient opens an imap connection. It is a field only so a test can
+	// substitute a fake and reach the parts of a binding that run after the
+	// connection. nil means pimap.Connect, which is what the app always uses.
+	// See imapseam.go.
+	newIMAPClient func(cfg pimap.Config) (mailClient, error)
 	// startedAt is when the process came up, for the process overlay's uptime.
 	startedAt time.Time
 	// runtimeReady is set once wails has handed us its context in startup.

@@ -5,7 +5,6 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
 	"github.com/TRC-Loop/Pelton/internal/mailexport"
 	"github.com/TRC-Loop/Pelton/internal/storage"
 )
@@ -91,7 +90,7 @@ func (a *App) moveMessageTo(m *storage.Message, dest storage.Folder) (ArchiveUnd
 	syncMu.Lock()
 	defer syncMu.Unlock()
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return ArchiveUndoDTO{}, err
 	}
@@ -209,7 +208,7 @@ func (a *App) UnarchiveMessage(rfcMessageID string, originalFolderID int64) erro
 	syncMu.Lock()
 	defer syncMu.Unlock()
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}

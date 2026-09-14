@@ -3,7 +3,6 @@ package desktop
 import (
 	"fmt"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
 	"github.com/TRC-Loop/Pelton/internal/storage"
 )
 
@@ -108,7 +107,7 @@ func (a *App) backfillAccount(accountID int64, folders []storage.Folder) (int, b
 		return 0, false, err
 	}
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return 0, false, err
 	}

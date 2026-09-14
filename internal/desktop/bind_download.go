@@ -15,7 +15,6 @@ import (
 	"github.com/emersion/go-imap/v2"
 	"github.com/wailsapp/wails/v2/pkg/runtime"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
 	"github.com/TRC-Loop/Pelton/internal/storage"
 )
 
@@ -353,7 +352,7 @@ func (a *App) planAccount(ctx context.Context, account storage.Account, since ti
 	syncMu.Lock()
 	defer syncMu.Unlock()
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return nil, err
 	}
@@ -449,7 +448,7 @@ func (a *App) downloadAccount(ctx context.Context, account storage.Account, task
 	syncMu.Lock()
 	defer syncMu.Unlock()
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}
@@ -483,7 +482,7 @@ func (a *App) downloadAccount(ctx context.Context, account storage.Account, task
 
 // fetchAndPin fetches one message and stores it pinned offline. Attachment bytes
 // are persisted only when includeAttachments is set.
-func (a *App) fetchAndPin(client *pimap.Client, task dlTask, includeAttachments bool) error {
+func (a *App) fetchAndPin(client mailClient, task dlTask, includeAttachments bool) error {
 	msg, err := client.FetchMessage(imap.UID(task.uid))
 	if err != nil {
 		return err
