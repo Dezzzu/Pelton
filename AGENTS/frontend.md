@@ -38,10 +38,16 @@ factual, don't restate the signature in prose.
 
 ## Localization
 
-UI strings live in `src/lib/locales/{en,de,fr,nl,es}.ts`. Adding user-facing
-text means adding the key to all five locale files. English is the source of
-truth; other languages can be a reasonable best-effort translation, flag it
-if you're unsure of the translation.
+UI strings live in `src/lib/locales/`. Adding user-facing text means adding the
+key to every catalog in that directory, so `ls` it rather than working from a
+list: languages get added, and the count grows. English is the source of truth;
+other languages can be a reasonable best-effort translation, flag it if you're
+unsure of the translation.
+
+`pnpm run check:locales` compares every catalog against `en.ts` and fails on a
+missing key, a key English does not have, or a `{placeholder}` that was dropped
+or renamed. CI runs it, so a string added to English alone goes red rather than
+rendering as its own key for everyone on another language.
 
 ## Testing
 
