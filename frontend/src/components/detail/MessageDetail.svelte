@@ -18,7 +18,7 @@
   import { openMessageId } from '../../stores/selection'
   import { messageDetail, loadMessage, clearMessage } from '../../stores/message'
   import { setFlagged, deleteMessage, archiveMessage, scanMessage } from '../../lib/api'
-  import { reportArchiveExport } from '../../lib/messageactions'
+  import { reportArchiveExport, dropDeleted } from '../../lib/messageactions'
   import {
     virusTotal,
     scanning,
@@ -145,8 +145,11 @@
     try {
       await deleteMessage(detail.id)
       recordDeleted(detail)
-      removeFromList(detail.id)
-      dismiss(detail.id)
+      // a deleted message hands the pane to the row that took its place rather
+      // than leaving it empty, so deleting down a mailbox never goes back to
+      // the list between messages.
+      closeTab(detail.id)
+      dropDeleted(detail.id)
     } catch (err) {
       toastError(errorMessage(err))
     }
