@@ -13,12 +13,13 @@ import (
 
 func exportTestApp(t *testing.T) (*App, *storage.DB, context.Context) {
 	t.Helper()
-	ctx := context.Background()
+	ctx, stopBackground := testContext(t)
 	db, err := storage.Open(filepath.Join(t.TempDir(), "test.db"))
 	if err != nil {
 		t.Fatalf("open: %v", err)
 	}
 	t.Cleanup(func() { db.Close() })
+	t.Cleanup(stopBackground)
 	if err := db.RunMigrations(ctx); err != nil {
 		t.Fatalf("migrate: %v", err)
 	}

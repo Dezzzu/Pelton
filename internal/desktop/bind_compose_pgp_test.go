@@ -63,13 +63,14 @@ func TestSuggestedProtection(t *testing.T) {
 // send path can be exercised without a live account.
 func pgpTestApp(t *testing.T, own, others []string) (*App, *storage.DB, int64) {
 	t.Helper()
-	ctx := context.Background()
+	ctx, stopBackground := testContext(t)
 	dir := t.TempDir()
 	db, err := storage.Open(filepath.Join(dir, "test.db"))
 	if err != nil {
 		t.Fatalf("open: %v", err)
 	}
 	t.Cleanup(func() { db.Close() })
+	t.Cleanup(stopBackground)
 	if err := db.RunMigrations(ctx); err != nil {
 		t.Fatalf("migrate: %v", err)
 	}
