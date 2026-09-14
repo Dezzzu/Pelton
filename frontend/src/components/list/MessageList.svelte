@@ -803,6 +803,9 @@
   }
 
   .header {
+    /* a grid item's automatic minimum is its min-content, so without this the
+       search bar's contents can widen the row past the column. */
+    min-width: 0;
     padding: var(--space-3);
     border-bottom: var(--hairline) solid var(--border-subtle);
   }
