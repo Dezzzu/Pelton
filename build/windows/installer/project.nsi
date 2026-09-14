@@ -132,9 +132,10 @@ ManifestDPIAware true
 
 !insertmacro MULTIUSER_PAGE_INSTALLMODE # All users (admin) vs just me (no admin).
 !insertmacro MUI_PAGE_DIRECTORY # In which folder install page.
-!insertmacro MUI_PAGE_COMPONENTS # Optional components (currently just the desktop shortcut).
+!insertmacro MUI_PAGE_COMPONENTS # Which shortcuts to create.
 !insertmacro MUI_PAGE_INSTFILES # Installing page.
 !define MUI_FINISHPAGE_RUN "$INSTDIR\${PRODUCT_EXECUTABLE}" # Offer to launch Pelton right after install, checked by default.
+!define MUI_FINISHPAGE_TEXT "${INFO_PRODUCTNAME} has been installed.$\r$\n$\r$\nTo pin it to the taskbar, start ${INFO_PRODUCTNAME}, then right-click its taskbar button and choose $\"Pin to taskbar$\". Windows does not allow an installer to do this for you."
 !insertmacro MUI_PAGE_FINISH # Finished installation page.
 
 !insertmacro MUI_UNPAGE_INSTFILES # Uinstalling page
@@ -206,10 +207,12 @@ Function un.onInit
    un_confirmed:
 FunctionEnd
 
+!define PELTON_REG_KEY "Software\${INFO_COMPANYNAME}\${INFO_PRODUCTNAME}"
+
 Section "-Core" SecCore
     ; leading "-" hides this from the components list and keeps it mandatory:
-    ; the app itself, its Start Menu shortcut, and file/protocol associations
-    ; always install regardless of what's checked below.
+    ; the app itself and its file/protocol associations always install
+    ; regardless of what's checked below. The shortcuts are separate sections.
     !insertmacro pelton.setShellContext
 
     !insertmacro pelton.stopRunningApp
@@ -226,7 +229,8 @@ Section "-Core" SecCore
     File /r "..\..\..\licenses\*.*"
     SetOutPath $INSTDIR
 
-    CreateShortcut "$SMPROGRAMS\${INFO_PRODUCTNAME}.lnk" "$INSTDIR\${PRODUCT_EXECUTABLE}"
+    WriteRegStr SHCTX "${PELTON_REG_KEY}" "StartMenuShortcut" "0"
+    WriteRegStr SHCTX "${PELTON_REG_KEY}" "DesktopShortcut" "0"
 
     !insertmacro wails.associateFiles
     !insertmacro wails.associateCustomProtocols
@@ -234,10 +238,22 @@ Section "-Core" SecCore
     !insertmacro wails.writeUninstaller
 SectionEnd
 
+Section "Start Menu Shortcut" SecStartMenuShortcut
+    !insertmacro pelton.setShellContext
+    CreateShortcut "$SMPROGRAMS\${INFO_PRODUCTNAME}.lnk" "$INSTDIR\${PRODUCT_EXECUTABLE}"
+    WriteRegStr SHCTX "${PELTON_REG_KEY}" "StartMenuShortcut" "1"
+SectionEnd
+
 Section "Desktop Shortcut" SecDesktopShortcut
     !insertmacro pelton.setShellContext
     CreateShortCut "$DESKTOP\${INFO_PRODUCTNAME}.lnk" "$INSTDIR\${PRODUCT_EXECUTABLE}"
+    WriteRegStr SHCTX "${PELTON_REG_KEY}" "DesktopShortcut" "1"
 SectionEnd
+
+!insertmacro MUI_FUNCTION_DESCRIPTION_BEGIN
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecStartMenuShortcut} "Add ${INFO_PRODUCTNAME} to the Start Menu."
+    !insertmacro MUI_DESCRIPTION_TEXT ${SecDesktopShortcut} "Put a ${INFO_PRODUCTNAME} shortcut on the desktop."
+!insertmacro MUI_FUNCTION_DESCRIPTION_END
 
 Section "uninstall"
     !insertmacro pelton.setShellContext
@@ -252,8 +268,18 @@ Section "uninstall"
     RMDir /r "$INSTDIR\licenses"
     RMDir /r $INSTDIR
 
-    Delete "$SMPROGRAMS\${INFO_PRODUCTNAME}.lnk"
-    Delete "$DESKTOP\${INFO_PRODUCTNAME}.lnk"
+    ; an empty value means a copy installed before the shortcuts were recorded,
+    ; where both were the installer's to remove.
+    ReadRegStr $0 SHCTX "${PELTON_REG_KEY}" "StartMenuShortcut"
+    ReadRegStr $1 SHCTX "${PELTON_REG_KEY}" "DesktopShortcut"
+    ${If} $0 != "0"
+        Delete "$SMPROGRAMS\${INFO_PRODUCTNAME}.lnk"
+    ${EndIf}
+    ${If} $1 != "0"
+        Delete "$DESKTOP\${INFO_PRODUCTNAME}.lnk"
+    ${EndIf}
+    DeleteRegValue SHCTX "${PELTON_REG_KEY}" "StartMenuShortcut"
+    DeleteRegValue SHCTX "${PELTON_REG_KEY}" "DesktopShortcut"
 
     !insertmacro wails.unassociateFiles
     !insertmacro wails.unassociateCustomProtocols
