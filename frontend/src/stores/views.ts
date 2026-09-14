@@ -5,6 +5,7 @@
 import { writable, get } from 'svelte/store'
 import type { View } from '../lib/types'
 import { listViews } from '../lib/api'
+import { leaveMissingSavedView } from './selection'
 
 export const views = writable<View[]>([])
 
@@ -34,8 +35,13 @@ export function closeViewEditor(): void {
 // underlying error.
 export async function loadViews(): Promise<void> {
   try {
-    views.set(await listViews())
+    const list = await listViews()
+    views.set(list)
+    leaveMissingSavedView(list.map((v) => v.id))
   } catch {
+    // the list is emptied, but the selection is left alone: a request that
+    // failed says nothing about whether the View being read still exists, and
+    // moving the user off it would be worse than a momentarily empty sidebar.
     views.set([])
   }
 }
