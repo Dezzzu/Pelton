@@ -74,6 +74,15 @@ jobs:
       - name: Type check
         run: pnpm --dir frontend run check
 
+      # a key added to en.ts alone builds and type-checks; it renders as its own
+      # key for everyone on another language, which only a speaker of that
+      # language ever notices.
+      - name: Locale catalogs
+        run: pnpm --dir frontend run check:locales
+
+      - name: Frontend tests
+        run: pnpm --dir frontend run test
+
       - name: Build
         run: pnpm --dir frontend run build
 

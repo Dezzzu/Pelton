@@ -421,6 +421,29 @@ export function removeFromList(id: number): void {
   })
 }
 
+// neighbourInList returns the row that should take id's place when it leaves
+// the list: the one below it, or the one above when it was the last. skip holds
+// rows that are going too, so a bulk action does not land on one of its own
+// casualties. null when the list holds nothing else, is not loaded, or does not
+// have id at all (a message opened from outside the current page).
+export function neighbourInList(id: number, skip: ReadonlySet<number> = new Set()): number | null {
+  const state = get(messageList)
+  if (state.status !== 'ready' || !state.data) {
+    return null
+  }
+  const items = state.data.items
+  const at = items.findIndex((m) => m.id === id)
+  if (at < 0) {
+    return null
+  }
+  const survives = (m: MessageSummary): boolean => m.id !== id && !skip.has(m.id)
+  const below = items.slice(at + 1).find(survives)
+  if (below) {
+    return below.id
+  }
+  return items.slice(0, at).findLast(survives)?.id ?? null
+}
+
 // restoreToList re-inserts a previously removed row (used by undo-delete),
 // keeping the newest-first order by date.
 export function restoreToList(summary: MessageSummary): void {

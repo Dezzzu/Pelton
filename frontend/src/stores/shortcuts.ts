@@ -4,7 +4,7 @@
 // App.svelte matches keydown events against this map, and the settings panel
 // edits it.
 
-import { writable, get } from 'svelte/store'
+import { writable, derived, get } from 'svelte/store'
 import { getSetting, setSetting } from '../lib/api'
 import { shortcuts as defaults, type ShortcutAction } from '../lib/shortcuts'
 import { shortcutLabel } from '../lib/i18n'
@@ -101,3 +101,25 @@ export function menuHint(action: ShortcutAction): string {
   const combo = get(bindings)[action]
   return combo ? shortcutLabel(combo) : ''
 }
+
+// shortcutTitle appends an action's key to a button tooltip, so hovering a
+// toolbar button says which key does the same thing. It is a derived store
+// rather than a plain function because a tooltip is rendered once and stays:
+// toggling the setting or rebinding the action has to update it in place,
+// unlike a menu, which is rebuilt every time it opens.
+//
+// Several actions can be listed for one button, first bound one wins. That is
+// for a button whose own action is unbound by default but which a broader
+// shortcut already reaches: closing a tab answers to close-window until the
+// user binds close-tab to something.
+export const shortcutTitle = derived(
+  [prefs, bindings],
+  ([$prefs, $bindings]) =>
+    (label: string, ...actions: ShortcutAction[]): string => {
+      if (!$prefs.showShortcutHints) {
+        return label
+      }
+      const combo = actions.map((action) => $bindings[action]).find(Boolean)
+      return combo ? `${label}  ${shortcutLabel(combo)}` : label
+    },
+)

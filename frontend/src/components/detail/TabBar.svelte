@@ -9,6 +9,7 @@
   import { IconX, IconMail, IconAlertTriangle } from '@tabler/icons-svelte'
   import { tabs, activeTabId, closeTab, focusTab, focusPane, reorderTabs } from '../../stores/tabs'
   import { prefs } from '../../stores/prefs'
+  import { shortcutTitle } from '../../stores/shortcuts'
   import { reorder, type ReorderDetail } from '../../lib/reorder'
   import { t } from '../../lib/i18n'
 
@@ -87,7 +88,7 @@
           type="button"
           class="close"
           aria-label={$t('tabs.close')}
-          title={$t('tabs.close')}
+          title={$shortcutTitle($t('tabs.close'), 'close-tab', 'close-window')}
           on:click={() => closeTab(tab.id)}
         >
           <IconX size={12} stroke={2} />

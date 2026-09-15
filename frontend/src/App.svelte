@@ -123,6 +123,7 @@
     bulkTrash,
     bulkArchive,
     reportArchiveExport,
+    dropDeleted,
   } from './lib/messageactions'
   import { buildCommands, mailCommands, type CommandContext, type MessageOp, type FolderOp } from './lib/commands'
   import { catalogByAction } from './lib/menuactions'
@@ -266,8 +267,9 @@
   }
 
   onMount(async () => {
-    // cosmetic demo mode (--potatoes-are-nice): flip the data layer to sample
-    // data before anything loads, so the whole ui fills with the potato inbox.
+    // cosmetic demo mode (--potatoes-are-nice). main.ts has normally answered
+    // this before the first component mounted; this is the backstop for a
+    // webview where the bindings were not ready that early.
     const demo = await isDemoMode().catch(() => false)
     setDemoActive(demo)
 
@@ -661,11 +663,8 @@
         case 'delete-message':
           await deleteMessage(msg.id)
           recordDeleted(msg)
-          removeFromList(msg.id)
           closeTab(msg.id)
-          if (get(openMessageId) === msg.id) {
-            openMessageId.set(null)
-          }
+          dropDeleted(msg.id)
           break
         case 'unsubscribe': {
           const detail = await getMessage(msg.id)

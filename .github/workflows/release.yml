@@ -256,6 +256,15 @@ jobs:
         shell: bash
         run: mv "build/bin/Pelton-amd64-installer.exe" "build/bin/Pelton-${{ steps.version.outputs.version }}-windows-amd64-installer.exe"
 
+      # the exe the installer wraps, shipped on its own for a portable install
+      # (#377). Pelton is a single executable, so the installer only adds the
+      # shortcuts and the uninstall entry; the same build runs from wherever it
+      # is put, including a usb stick. Same binary, same signature-less state,
+      # so this costs a copy rather than a second build.
+      - name: Stage portable exe
+        shell: bash
+        run: cp "build/bin/Pelton.exe" "build/bin/Pelton-${{ steps.version.outputs.version }}-windows-amd64-portable.exe"
+
       - name: Upload to release
         if: env.RELEASE_TAG != ''
         shell: bash
@@ -264,6 +273,7 @@ jobs:
         run: |
           gh release upload "$RELEASE_TAG" \
             "build/bin/Pelton-${{ steps.version.outputs.version }}-windows-amd64-installer.exe" \
+            "build/bin/Pelton-${{ steps.version.outputs.version }}-windows-amd64-portable.exe" \
             --clobber
 
   # ---------------------------------------------------------------------------

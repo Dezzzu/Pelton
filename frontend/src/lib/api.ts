@@ -2,6 +2,12 @@
 // components call these functions, never window.go.* or the generated bindings
 // directly, so the call sites stay typed and the generated layer can change
 // shape without touching components.
+//
+// Being the one boundary is also what makes demo mode work. A function that
+// reads or writes real mail checks isDemoActive() first and answers from the
+// samples instead: the real install is still sitting behind this file, with
+// real messages under the same ids the samples use, so anything that reaches
+// the backend in demo mode acts on somebody's actual mailbox.
 
 import * as App from '../../wailsjs/go/desktop/App'
 import { desktop } from '../../wailsjs/go/models'
@@ -13,6 +19,9 @@ import {
   demoList,
   demoMessage,
   demoOutbox,
+  demoSearch,
+  demoHtml,
+  demoSource,
 } from './demo'
 import type {
   Account,
@@ -187,6 +196,9 @@ export function dismissPasswordPrompt(accountId: number): Promise<void> {
 
 // deleteAccount removes an account, its cached mail and its keyring secret.
 export function deleteAccount(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.DeleteAccount(id)
 }
 
@@ -209,12 +221,18 @@ export function createFolder(accountId: number, parentId: number, name: string):
 // mailboxes (INBOX, Sent, Drafts, Trash, Junk, Archive) are refused by the
 // backend.
 export function renameFolder(id: number, name: string): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.RenameFolder(id, name)
 }
 
 // deleteFolder deletes a mailbox, its subfolders and their mail, on the server
 // as well as locally. Destructive and not undoable: confirm before calling.
 export function deleteFolder(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.DeleteFolder(id)
 }
 
@@ -222,6 +240,9 @@ export function deleteFolder(id: number): Promise<void> {
 // with how many it removed. The backend refuses any folder that is not the
 // account's trash. Destructive and not undoable: confirm before calling.
 export function emptyTrash(folderId: number): Promise<number> {
+  if (isDemoActive()) {
+    return Promise.resolve(0)
+  }
   return App.EmptyTrash(folderId)
 }
 
@@ -359,6 +380,9 @@ export function setFolderSyncExcluded(folderId: number, excluded: boolean): Prom
 // idle. Adding an account no longer does this on its own, so the wizard can
 // show the folder list before anything is fetched.
 export function startAccountSync(accountId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.StartAccountSync(accountId)
 }
 
@@ -391,11 +415,17 @@ export function getMessage(id: number): Promise<MessageDetail> {
 // unsubscribeMessage carries out a message's advertised unsubscribe (the
 // one-click POST or the mailto send); plain links are opened by the caller.
 export function unsubscribeMessage(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.Unsubscribe(id)
 }
 
 // getMessageSource fetches a message's raw RFC 822 source on demand over imap.
 export function getMessageSource(id: number): Promise<string> {
+  if (isDemoActive()) {
+    return Promise.resolve(demoSource(id))
+  }
   return App.GetMessageSource(id)
 }
 
@@ -403,25 +433,40 @@ export function getMessageSource(id: number): Promise<string> {
 // includeTrackers additionally loads the images detection flagged as tracking
 // pixels, which the setting otherwise keeps blocked even here.
 export function getMessageHtml(id: number, allowRemote: boolean, includeTrackers = false): Promise<string> {
+  if (isDemoActive()) {
+    return Promise.resolve(demoHtml())
+  }
   return App.GetMessageHTML(id, allowRemote, includeTrackers)
 }
 
 // setSeen / setFlagged toggle a flag and queue the change for sync.
 export function setSeen(id: number, seen: boolean): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.SetSeen(id, seen)
 }
 
 export function setFlagged(id: number, flagged: boolean): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.SetFlagged(id, flagged)
 }
 
 // deleteMessage marks a message for server-side deletion on the next sync.
 export function deleteMessage(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.DeleteMessage(id)
 }
 
 // undoDelete reverses a pending delete while the message is still cached.
 export function undoDelete(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.UndoDelete(id)
 }
 
@@ -520,17 +565,26 @@ export function unsealDraft(id: number, passphrase: string): Promise<desktop.Dra
 // archiveMessage moves a message to its account's Archive folder on the server,
 // returning the info needed to undo it.
 export function archiveMessage(id: number): Promise<ArchiveUndo> {
+  if (isDemoActive()) {
+    return Promise.resolve({ messageId: '', originalFolderId: 0, exportPath: '', exportError: '' })
+  }
   return App.ArchiveMessage(id)
 }
 
 // unarchiveMessage moves an archived message back to its original folder,
 // locating it by rfc Message-ID.
 export function unarchiveMessage(messageId: string, originalFolderId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.UnarchiveMessage(messageId, originalFolderId)
 }
 
 // moveMessage moves a message to any folder of its account, returning undo info.
 export function moveMessage(id: number, destFolderId: number): Promise<ArchiveUndo> {
+  if (isDemoActive()) {
+    return Promise.resolve({ messageId: '', originalFolderId: 0, exportPath: '', exportError: '' })
+  }
   return App.MoveMessage(id, destFolderId)
 }
 
@@ -562,6 +616,9 @@ export interface SearchResult {
 // search runs a ranked, typo-tolerant search and returns a page of matching
 // summaries in relevance order.
 export function search(req: SearchRequest): Promise<SearchResult> {
+  if (isDemoActive()) {
+    return Promise.resolve(demoSearch())
+  }
   return App.Search(new desktop.SearchRequestDTO(req))
 }
 
@@ -607,25 +664,40 @@ export function searchMessageIds(req: SearchRequest): Promise<MessageIDs> {
 // saveAttachment prompts for a path and writes the file, returning the path or
 // an empty string if the user cancelled.
 export function saveAttachment(messageId: number, attachmentId: number): Promise<string> {
+  if (isDemoActive()) {
+    return Promise.resolve('')
+  }
   return App.SaveAttachment(messageId, attachmentId)
 }
 
 // sendMessage enqueues a message in the durable outbox. the plain request is
 // wrapped back into the generated class the binding expects.
 export function sendMessage(req: ComposeRequest): Promise<number> {
+  if (isDemoActive()) {
+    return Promise.resolve(0)
+  }
   return App.SendMessage(new desktop.ComposeRequest(req))
 }
 
 // saveDraft stores a compose request as a local draft, returning its id.
 export function saveDraft(id: number, req: ComposeRequest): Promise<number> {
+  if (isDemoActive()) {
+    return Promise.resolve(0)
+  }
   return App.SaveDraft(id, new desktop.ComposeRequest(req))
 }
 
 export function listDrafts(): Promise<Draft[]> {
+  if (isDemoActive()) {
+    return Promise.resolve([])
+  }
   return App.ListDrafts()
 }
 
 export function deleteDraft(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.DeleteDraft(id)
 }
 
@@ -639,6 +711,9 @@ export function listOutbox(): Promise<OutboxRow[]> {
 
 // triggerSync runs one sync pass on demand.
 export function triggerSync(): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.TriggerSync()
 }
 
@@ -654,6 +729,9 @@ export function accountSyncStates(): Promise<AccountSyncState[]> {
 // syncAccountNow syncs one account, for the retry on a failed mailbox. It
 // rejects with what went wrong this time.
 export function syncAccountNow(accountId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.SyncAccountNow(accountId)
 }
 
@@ -705,17 +783,26 @@ export function discardFailedSend(id: number): Promise<boolean> {
 
 // trustSenderImages permanently allows remote content from a message's sender.
 export function trustSenderImages(messageId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.TrustSenderImages(messageId)
 }
 
 // allowDomainImages permanently allows remote content from a sender's domain.
 export function allowDomainImages(messageId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.AllowDomainImages(messageId)
 }
 
 // allowRemoteForMessage permanently allows remote content for this one message,
 // without trusting the whole sender or domain.
 export function allowRemoteForMessage(messageId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.AllowRemoteForMessage(messageId)
 }
 
@@ -752,11 +839,17 @@ export function removeVIPSender(address: string): Promise<void> {
 
 // markSenderVIP adds a message's sender to the VIP list.
 export function markSenderVIP(messageId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.MarkSenderVIP(messageId)
 }
 
 // unmarkSenderVIP removes a message's sender from the VIP list.
 export function unmarkSenderVIP(messageId: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.UnmarkSenderVIP(messageId)
 }
 
@@ -774,6 +867,9 @@ export function senderPhotos(email: string): Promise<string[]> {
 // exportMessagePrintView opens a print-ready view of a message in the system
 // browser, where it can be saved as a pdf or printed.
 export function exportMessagePrintView(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.ExportMessagePrintView(id)
 }
 
@@ -867,25 +963,40 @@ export function setAccountSignatures(
 
 // setFlagColor sets a message's color label (0 clears, 1..8 pick a color).
 export function setFlagColor(id: number, color: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.SetFlagColor(id, color)
 }
 
 // downloadMessageOffline / removeOffline pin or unpin a single message.
 export function downloadMessageOffline(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.DownloadMessageOffline(id)
 }
 
 export function removeOffline(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.RemoveOffline(id)
 }
 
 // snoozeMessage schedules a message to resurface at untilRFC3339; hideNow also
 // hides it from the list until then.
 export function snoozeMessage(id: number, untilRFC3339: string, hideNow: boolean): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.SnoozeMessage(id, untilRFC3339, hideNow)
 }
 
 export function unsnoozeMessage(id: number): Promise<void> {
+  if (isDemoActive()) {
+    return Promise.resolve()
+  }
   return App.UnsnoozeMessage(id)
 }
 
@@ -893,12 +1004,18 @@ export function unsnoozeMessage(id: number): Promise<void> {
 
 // readAttachment returns an attachment's bytes for the in-app previewer.
 export function readAttachment(messageId: number, attachmentId: number): Promise<AttachmentContent> {
+  if (isDemoActive()) {
+    return Promise.resolve({ filename: '', contentType: '', sizeBytes: 0, data: '', tooLarge: false })
+  }
   return App.ReadAttachment(messageId, attachmentId)
 }
 
 // saveAllAttachments prompts for a directory and writes every attachment there,
 // returning the directory (empty if cancelled).
 export function saveAllAttachments(messageId: number): Promise<string> {
+  if (isDemoActive()) {
+    return Promise.resolve('')
+  }
   return App.SaveAllAttachments(messageId)
 }
 
@@ -990,10 +1107,16 @@ export function systemColorScheme(): Promise<string> {
 // --- address book ---
 
 export function searchAddresses(query: string, limit: number): Promise<AddressBookEntry[]> {
+  if (isDemoActive()) {
+    return Promise.resolve([])
+  }
   return App.SearchAddresses(query, limit)
 }
 
 export function listAddresses(): Promise<AddressBookEntry[]> {
+  if (isDemoActive()) {
+    return Promise.resolve([])
+  }
   return App.ListAddresses()
 }
 
@@ -1503,6 +1626,9 @@ export function allAccounts(): Promise<Account[]> {
 
 // listAddressBooks returns every configured CardDAV address book (#168).
 export function listAddressBooks(): Promise<AddressBook[]> {
+  if (isDemoActive()) {
+    return Promise.resolve([])
+  }
   return App.ListAddressBooks().then((list) => (list ?? []) as unknown as AddressBook[])
 }
 
@@ -1532,6 +1658,9 @@ export function removeAddressBook(id: number): Promise<void> {
 
 // listContacts returns the contacts in a book, or in all of them for bookId 0.
 export function listContacts(bookId: number): Promise<Contact[]> {
+  if (isDemoActive()) {
+    return Promise.resolve([])
+  }
   return App.ListContacts(bookId).then((list) => (list ?? []) as unknown as Contact[])
 }
 

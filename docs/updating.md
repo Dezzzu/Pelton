@@ -52,6 +52,12 @@ Download and run the newer installer from
 installs over the existing version. See
 [Install on Windows](install/windows.md) for the full walkthrough.
 
+If you use the portable `.exe` instead, download the newer
+`Pelton-<VERSION>-windows-amd64-portable.exe` and replace the old file with
+it. There is nothing to uninstall first. Your mail and settings live in
+`%APPDATA%\Pelton` rather than next to the executable, so replacing the file
+leaves them alone.
+
 ## Fedora (Copr)
 
 If you enabled the Copr repo, Pelton updates like any other package:

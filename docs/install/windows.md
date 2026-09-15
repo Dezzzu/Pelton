@@ -27,13 +27,25 @@ or from
 - [x] Download Installer
 
 ??? info "Portable Installations and Package Managers (Winget/Chocolatey)"
-    Portable `.exe`'s are not yet available but are in the works: 
-    [#377](https://github.com/peltonapp/Pelton/issues/377).
+    Every release also ships a portable build, named
+    `Pelton-<VERSION>-windows-amd64-portable.exe`. It is the same executable the
+    installer wraps, just on its own: Pelton is a single file, so the installer
+    only adds the Start Menu and Desktop shortcuts and the entry in
+    **Add or remove programs**.
 
-    Until then, a workaround would be either:
+    Put it wherever you like, a USB stick included, and run it. Nothing is
+    installed and nothing is registered.
 
-    1. [Build Pelton from source](build-from-source.md)
-    2. Install Pelton and grab the `.exe` from the installation directory.
+    !!! warning "Portable means the app, not your mail"
+        Your mailboxes, messages and settings live in `%APPDATA%\Pelton`, in the
+        Windows profile of whoever runs it, **not** next to the `.exe`. Carrying
+        the file to another machine gives you Pelton there, not your mail, and
+        deleting the file leaves that data behind. To remove it as well, delete
+        `%APPDATA%\Pelton` too.
+
+    To update a portable install, download the newer `.exe` and replace the old
+    one. There is nothing to uninstall first, and your mail is untouched because
+    it was never in that file.
     ---
     Pelton is not yet in the Chocolatey or Winget registry.
     However, this will be done in the future. See [#376](https://github.com/peltonapp/Pelton/issues/376)

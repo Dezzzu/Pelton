@@ -35,6 +35,7 @@
   import { loadOutbox } from '../../stores/outbox'
   import { scheduleUndo } from '../../stores/undosend'
   import { prefs } from '../../stores/prefs'
+  import { shortcutTitle } from '../../stores/shortcuts'
   import { bodyFontStack } from '../../lib/fonts'
   import { buildRequest, hasRecipients } from '../../lib/mailcompose'
   import ProtectionPicker from './ProtectionPicker.svelte'
@@ -455,7 +456,13 @@
           <IconArrowsDiagonal size={15} stroke={1.8} />
         {/if}
       </button>
-      <button type="button" class="win-btn" aria-label={$t('compose.window.close')} on:click={requestClose}>
+      <button
+        type="button"
+        class="win-btn"
+        aria-label={$t('compose.window.close')}
+        title={$shortcutTitle($t('compose.window.close'), 'close-window')}
+        on:click={requestClose}
+      >
         <IconX size={16} stroke={1.8} />
       </button>
     </div>

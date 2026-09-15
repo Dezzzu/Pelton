@@ -1,8 +1,6 @@
 package desktop
 
 import (
-	pimap "github.com/peltonapp/Pelton/internal/imap"
-
 	"github.com/emersion/go-imap/v2"
 )
 
@@ -34,7 +32,7 @@ func (a *App) GetMessageSource(id int64) (string, error) {
 	syncMu.Lock()
 	defer syncMu.Unlock()
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return "", offlineOrErr(err)
 	}

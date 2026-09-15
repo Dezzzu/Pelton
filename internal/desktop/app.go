@@ -16,6 +16,7 @@ import (
 	"time"
 
 	"github.com/peltonapp/Pelton/internal/configsync"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
 	"github.com/peltonapp/Pelton/internal/logging"
 	"github.com/peltonapp/Pelton/internal/mcpserver"
 	"github.com/peltonapp/Pelton/internal/outbox"
@@ -66,6 +67,16 @@ type App struct {
 	// learn it is to try, and a restart tries again. See bind_account_manage.go.
 	rejectedLogins   map[int64]struct{}
 	rejectedLoginsMu sync.Mutex
+	// startAccount runs an account's first sync and parks it on idle. It is a
+	// field only so a test can watch which accounts an import starts without
+	// the call reaching a real server or the os keyring. nil means
+	// StartAccountSync, which is what the app always uses.
+	startAccount func(accountID int64) error
+	// newIMAPClient opens an imap connection. It is a field only so a test can
+	// substitute a fake and reach the parts of a binding that run after the
+	// connection. nil means pimap.Connect, which is what the app always uses.
+	// See imapseam.go.
+	newIMAPClient func(cfg pimap.Config) (mailClient, error)
 	// startedAt is when the process came up, for the process overlay's uptime.
 	startedAt time.Time
 	// runtimeReady is set once wails has handed us its context in startup.

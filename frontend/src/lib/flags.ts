@@ -31,6 +31,7 @@ const defaultCountry: Record<string, string> = {
   nl: 'nl',
   es: 'es',
   pl: 'pl',
+  tr: 'tr',
 }
 
 /**

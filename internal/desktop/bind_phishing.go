@@ -67,27 +67,29 @@ func authStatus(auth storage.MessageAuth) string {
 // and a contact harvested in the last minute changes no verdict.
 const correspondentTTL = time.Minute
 
-// correspondentCache holds the address book in the shape the checks want.
+// correspondentCache holds the address book in the shape the checks want, plus
+// the user's own addresses, which come from the same pass over the accounts.
 type correspondentCache struct {
 	mu      sync.Mutex
 	loaded  time.Time
 	entries map[string]string
+	own     []string
 }
 
 // correspondents returns who the user exchanges mail with, address to display
 // name, both lowercased. The checks that depend on it are the ones that make
 // this specific to the user rather than a list of well-known brands somebody
 // else picked, so an empty book simply means those checks stay quiet.
-func (a *App) correspondents() map[string]string {
+func (a *App) correspondents() (map[string]string, []string) {
 	a.contacts.mu.Lock()
 	defer a.contacts.mu.Unlock()
 	if a.contacts.entries != nil && time.Since(a.contacts.loaded) < correspondentTTL {
-		return a.contacts.entries
+		return a.contacts.entries, a.contacts.own
 	}
 	entries, err := a.store.ListAddresses(a.ctx)
 	if err != nil {
 		a.log.Error("phishing: load address book", "err", err)
-		return a.contacts.entries
+		return a.contacts.entries, a.contacts.own
 	}
 	out := make(map[string]string, len(entries))
 	for _, e := range entries {
@@ -99,20 +101,29 @@ func (a *App) correspondents() map[string]string {
 	}
 	// the user's own addresses are not somebody to be impersonated by, and a
 	// message from another of their own accounts is not a lookalike of this one.
+	var own []string
 	if accounts, err := a.store.ListAccounts(a.ctx); err == nil {
+		own = make([]string, 0, len(accounts))
 		for _, acct := range accounts {
-			delete(out, strings.ToLower(acct.Email))
+			address := strings.ToLower(strings.TrimSpace(acct.Email))
+			if address == "" {
+				continue
+			}
+			delete(out, address)
+			own = append(own, address)
 		}
 	}
 	a.contacts.entries = out
+	a.contacts.own = own
 	a.contacts.loaded = time.Now()
-	return out
+	return out, own
 }
 
 // checkPhishing runs the local checks over one stored message. It costs a
 // regex pass over the body and no io beyond the cached contact list, so it runs
 // on every message open rather than behind a button.
 func (a *App) checkPhishing(m storage.Message) PhishingDTO {
+	correspondents, own := a.correspondents()
 	report := phishing.Analyse(phishing.Message{
 		From:     addressOnly(m.FromAddress),
 		FromName: displayNameOf(m.FromAddress, m.FromName),
@@ -126,7 +137,8 @@ func (a *App) checkPhishing(m storage.Message) PhishingDTO {
 		},
 		HTML:           m.BodyHTML,
 		Text:           m.BodyPlain,
-		Correspondents: a.correspondents(),
+		Correspondents: correspondents,
+		Own:            own,
 	})
 
 	dto := PhishingDTO{Level: report.Level, Links: report.Links}

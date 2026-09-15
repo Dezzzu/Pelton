@@ -7,6 +7,8 @@ import (
 	"os"
 	"path/filepath"
 	"slices"
+	"sync"
+	"time"
 
 	"github.com/peltonapp/Pelton/internal/logging"
 	"github.com/peltonapp/Pelton/internal/storage"
@@ -51,10 +53,38 @@ func debugForced(args []string) bool {
 // takes the whole process down whether it is handled or not; the difference is
 // whether anything is left to read afterwards.
 func goSafe(activity string, fn func()) {
+	backgroundWork.Add(1)
 	go func() {
+		defer backgroundWork.Done()
 		defer logging.Guard(activity)
 		fn()
 	}()
+}
+
+// backgroundWork counts the goroutines goSafe has running. Several of them
+// outlive the call that started them and keep reading and writing the store, so
+// there has to be a way to tell when they are finished before it closes under
+// them.
+var backgroundWork sync.WaitGroup
+
+// waitForBackgroundWork waits for every goroutine goSafe started to return,
+// giving up after timeout and reporting whether they all finished.
+//
+// The long-lived ones (the idle loops, the outbox worker, the pollers) only
+// return when their context is cancelled, so cancel it first or this waits out
+// the whole timeout.
+func waitForBackgroundWork(timeout time.Duration) bool {
+	done := make(chan struct{})
+	go func() {
+		backgroundWork.Wait()
+		close(done)
+	}()
+	select {
+	case <-done:
+		return true
+	case <-time.After(timeout):
+		return false
+	}
 }
 
 // logDir is the directory logs and crash reports are written to.
