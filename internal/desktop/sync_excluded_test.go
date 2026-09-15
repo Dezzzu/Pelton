@@ -1,7 +1,6 @@
 package desktop
 
 import (
-	"context"
 	"log/slog"
 	"path/filepath"
 	"testing"
@@ -13,12 +12,13 @@ import (
 // it opens anything. The engine is never reached for an excluded folder, so a
 // 30k-message archive costs no round trips at all (#173).
 func TestExcludedFoldersAreNotSynced(t *testing.T) {
-	ctx := context.Background()
+	ctx, stopBackground := testContext(t)
 	db, err := storage.Open(filepath.Join(t.TempDir(), "test.db"))
 	if err != nil {
 		t.Fatalf("open: %v", err)
 	}
 	t.Cleanup(func() { db.Close() })
+	t.Cleanup(stopBackground)
 	if err := db.RunMigrations(ctx); err != nil {
 		t.Fatalf("migrate: %v", err)
 	}

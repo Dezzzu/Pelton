@@ -28,6 +28,7 @@
   import { reorder, type ReorderDetail } from '../../lib/reorder'
   import { selection, selectFolder } from '../../stores/selection'
   import { openContextMenu, type MenuEntry } from '../../stores/contextmenu'
+  import { menuHint } from '../../stores/shortcuts'
   import {
     openCreateFolder,
     openRenameFolder,
@@ -94,6 +95,7 @@
       {
         label: folder.pinned ? $t('folders.unpin') : $t('folders.pin'),
         icon: folder.pinned ? IconPinnedOff : IconPin,
+        hint: menuHint('toggle-pin-folder'),
         action: () => void togglePinned(),
       },
       // offered on every folder, including the inbox: a mailbox the server
@@ -115,6 +117,7 @@
         label: $t('folders.emptyTrash'),
         icon: IconTrash,
         danger: true,
+        hint: menuHint('empty-trash'),
         action: () => openEmptyTrash(folder),
       })
     }
@@ -123,6 +126,7 @@
       entries.push({
         label: $t('folders.newSubfolder'),
         icon: IconFolderPlus,
+        hint: menuHint('new-folder'),
         action: () => openCreateFolder(folder.accountId, folder),
       })
     }
@@ -133,12 +137,14 @@
       entries.push({
         label: $t('folders.rename'),
         icon: IconPencil,
+        hint: menuHint('rename-folder'),
         action: () => openRenameFolder(folder),
       })
       entries.push({
         label: $t('folders.delete'),
         icon: IconTrash,
         danger: true,
+        hint: menuHint('delete-folder'),
         action: () => openDeleteFolder(folder),
       })
     }

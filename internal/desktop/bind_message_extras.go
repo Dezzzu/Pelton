@@ -5,8 +5,6 @@ import (
 	"time"
 
 	"github.com/emersion/go-imap/v2"
-
-	pimap "github.com/peltonapp/Pelton/internal/imap"
 )
 
 // colorKeywords maps a color index (1..8) to the Thunderbird-style imap keyword
@@ -63,7 +61,7 @@ func (a *App) pushColorKeyword(id int64, color int) {
 	syncMu.Lock()
 	defer syncMu.Unlock()
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		a.log.Error("color sync: connect", "err", err)
 		return

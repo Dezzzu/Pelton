@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"net/url"
 	"regexp"
+	"slices"
 	"strings"
 )
 
@@ -107,6 +108,31 @@ type Message struct {
 	// display-name checks specific to this user rather than a list of brands
 	// somebody else chose.
 	Correspondents map[string]string
+	// Own is the user's own mailbox addresses, lowercased. A message really
+	// from one of these is not impersonating anybody, however much its domain
+	// resembles another. See ownSender.
+	Own []string
+}
+
+// ownSender reports whether the message genuinely comes from one of the user's
+// own mailboxes.
+//
+// Authentication has to vouch for it, because "a message from yourself" is a
+// phishing shape of its own: the From line alone is free to write, so matching
+// it against the account list would hand an attacker the exemption just for
+// typing the user's address. An aligned pass cannot be forged that way.
+func ownSender(msg Message, from string) bool {
+	if len(msg.Own) == 0 || from == "" {
+		return false
+	}
+	sender := strings.ToLower(strings.TrimSpace(msg.From))
+	if !slices.Contains(msg.Own, sender) {
+		return false
+	}
+	if msg.Auth.DKIM == ResultPass && sameOrg(msg.Auth.DKIMDomain, from) {
+		return true
+	}
+	return msg.Auth.SPF == ResultPass && sameOrg(msg.Auth.SPFDomain, from)
 }
 
 // maxLinks caps the link analysis. A message with thousands of links is a
@@ -212,6 +238,14 @@ func senderSignals(msg Message) []Signal {
 // lookalike of somebody else's.
 func nameSignals(msg Message, from string) []Signal {
 	var out []Signal
+
+	// an authenticated message from the user's own mailbox is not pretending to
+	// be anyone. Without this, a user whose own domain resembles one they write
+	// to gets their own mail accused, which is both wrong and the fastest way to
+	// teach someone to ignore the banner.
+	if ownSender(msg, from) {
+		return nil
+	}
 
 	if spoofed := displayNameSpoof(msg, from); spoofed != "" {
 		out = append(out, Signal{Kind: KindDisplayNameSpoof, Detail: spoofed, weight: strong})

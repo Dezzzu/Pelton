@@ -18,7 +18,7 @@ import {
 } from './api'
 import type { ArchiveUndo } from './api'
 import type { MessageSummary } from './types'
-import { patchInList, removeFromList } from '../stores/messages'
+import { patchInList, removeFromList, neighbourInList } from '../stores/messages'
 import { openMessageId } from '../stores/selection'
 import { clearSelection } from '../stores/listselect'
 import { recordDeleted, recordDeletedBatch } from '../stores/undodelete'
@@ -87,15 +87,32 @@ export async function setOffline(item: MessageSummary, offline: boolean): Promis
   }
 }
 
-/** Deletes one message, recording it for undo and closing it if it was open. */
+/**
+ * Drops a deleted message from the list and moves the detail pane on.
+ *
+ * Emptying the pane instead means a run of deletes has to go back to the list
+ * between each one, which is most of the work of triaging a mailbox. alsoDeleting
+ * names the rest of a batch, so a bulk delete does not land on a row that is
+ * about to go as well.
+ *
+ * It removes the row itself because the neighbour has to be read while the row
+ * is still there to have one.
+ */
+export function dropDeleted(id: number, alsoDeleting?: ReadonlySet<number>): void {
+  const wasOpen = get(openMessageId) === id
+  const next = wasOpen ? neighbourInList(id, alsoDeleting) : null
+  removeFromList(id)
+  if (wasOpen) {
+    openMessageId.set(next)
+  }
+}
+
+/** Deletes one message, recording it for undo and moving the pane on if it was open. */
 export async function trashMessage(item: MessageSummary): Promise<void> {
   try {
     await deleteMessage(item.id)
     recordDeleted(item)
-    removeFromList(item.id)
-    if (get(openMessageId) === item.id) {
-      openMessageId.set(null)
-    }
+    dropDeleted(item.id)
   } catch (err) {
     toastError(errorMessage(err))
   }
@@ -173,15 +190,13 @@ export async function bulkTrash(items: MessageSummary[]): Promise<void> {
     return
   }
   clearSelection()
+  const batch = new Set(items.map((m) => m.id))
   const deleted: MessageSummary[] = []
   for (const item of items) {
     try {
       await deleteMessage(item.id)
       deleted.push(item)
-      removeFromList(item.id)
-      if (get(openMessageId) === item.id) {
-        openMessageId.set(null)
-      }
+      dropDeleted(item.id, batch)
     } catch (err) {
       toastError(errorMessage(err))
     }

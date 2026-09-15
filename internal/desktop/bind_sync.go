@@ -20,6 +20,29 @@ import (
 // not open competing logins for the same account at once.
 var syncMu sync.Mutex
 
+const (
+	// idleRetry is how long an idle loop waits after a connection it did not
+	// expect to lose.
+	idleRetry = 15 * time.Second
+	// idleNoCredentialsRetry is how long it waits when the account has no
+	// password. Longer, because nothing changes until the user types one.
+	idleNoCredentialsRetry = 60 * time.Second
+)
+
+// idleRetryWait says how long to wait before opening an account's idle
+// connection again.
+//
+// A missing password used to end the loop for good. That made a mailbox
+// unfixable without a restart: the user typed the password, the account still
+// received nothing, and only the next launch brought it back. Waiting is the
+// whole point, since a password can arrive at any moment.
+func idleRetryWait(err error) time.Duration {
+	if errors.Is(err, errNoCredentials) {
+		return idleNoCredentialsRetry
+	}
+	return idleRetry
+}
+
 // startBackgroundServices launches the outbox worker and the initial sync plus
 // per-account idle loops. Credentials come from the keyring (added by the
 // wizard) with an environment fallback for the legacy cli account.
@@ -116,11 +139,22 @@ func (a *App) runInitialSyncAndIdle() {
 		if account.Local {
 			continue
 		}
-		if err := a.syncAccount(account); err != nil && !errors.Is(err, errNoCredentials) {
-			a.log.Error("initial sync", "account", account.Email, "err", err)
+		if err := a.syncAccount(account); err != nil {
+			// a missing password is not an error to shout about, but dropping it
+			// without a word left the one case that needs explaining with no
+			// trace at all, even with file logging on.
+			if errors.Is(err, errNoCredentials) {
+				a.log.Warn("mailbox has no password, not syncing", "account", account.Email)
+			} else {
+				a.log.Error("initial sync", "account", account.Email, "err", err)
+			}
 		}
 		goSafe("waiting for new mail", func() { a.idleLoop(account) })
 	}
+	// the marks from this pass are pushed like any other run's. without it a
+	// mailbox that failed its first sync stayed unmarked until some later run
+	// happened to end, which for a mailbox with no password is never.
+	a.emitAccountSyncStates()
 	// contacts ride along with the mail sync (#168). It is one cheap request
 	// per address book when nothing changed, and it runs after the mail so a
 	// slow contacts server never delays the inbox.
@@ -208,7 +242,7 @@ func (a *App) syncAccountOnce(account storage.Account) error {
 	a.emit(EventSyncState, SyncStateEvent{Running: true})
 	defer a.emit(EventSyncState, SyncStateEvent{Running: false})
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}
@@ -233,7 +267,7 @@ func (a *App) syncAccountOnce(account storage.Account) error {
 // syncFolders runs the sync engine over each stored folder of an account,
 // emitting a progress event per folder and a new-mail event when one gained
 // messages.
-func (a *App) syncFolders(client *pimap.Client, accountID int64) error {
+func (a *App) syncFolders(client mailClient, accountID int64) error {
 	all, err := a.store.ListFolders(a.ctx, accountID)
 	if err != nil {
 		return err
@@ -244,7 +278,10 @@ func (a *App) syncFolders(client *pimap.Client, accountID int64) error {
 	// synced makes the bar lie (#173).
 	folders := make([]storage.Folder, 0, len(all))
 	for _, f := range all {
-		if !f.SyncExcluded {
+		// a container the server marks \Noselect holds no mail and cannot be
+		// selected, so syncing one fails every single time. It is kept as a row
+		// because the tree needs it as a parent, but it is not synced.
+		if !f.SyncExcluded && folderSelectable(f) {
 			folders = append(folders, f)
 		}
 	}
@@ -253,12 +290,22 @@ func (a *App) syncFolders(client *pimap.Client, accountID int64) error {
 	a.syncTally.begin(len(folders))
 
 	newTotal := 0
+	// a folder that fails does not stop the others: mail the rest of the account
+	// can still fetch is worth having. But the failure is carried out of here,
+	// because reporting the account as synced when a folder did not sync is what
+	// makes a mailbox go quiet with nothing to show for it.
+	var failedFolders []string
+	var firstFolderErr error
 	for i, f := range folders {
 		a.syncTally.enterFolder(i, f.Name)
 		a.emitSyncProgress(accountID, email, client.Addr(), a.syncTally.counts())
 		res, err := engine.SyncFolder(a.ctx, f)
 		if err != nil {
 			a.log.Error("sync folder", "folder", f.Name, "err", err)
+			failedFolders = append(failedFolders, f.Name)
+			if firstFolderErr == nil {
+				firstFolderErr = err
+			}
 			continue
 		}
 		if res.New > 0 {
@@ -285,7 +332,24 @@ func (a *App) syncFolders(client *pimap.Client, accountID int64) error {
 			goSafe("collecting addresses", a.harvestAddressBook)
 		}
 	}
-	return nil
+	return folderSyncError(failedFolders, len(folders), firstFolderErr)
+}
+
+// folderSyncError turns the folders that failed in one run into the error the
+// account's sync outcome records, or nil when they all got through.
+//
+// The first failure is wrapped rather than described, so the reason survives:
+// the ui classifies a sync failure by what the error is, and the detail dialog
+// shows the server's own words.
+func folderSyncError(failed []string, total int, first error) error {
+	if first == nil {
+		return nil
+	}
+	if len(failed) == 1 {
+		return fmt.Errorf("sync folder %q: %w", failed[0], first)
+	}
+	return fmt.Errorf("%d of %d folders failed to sync, starting with %q: %w",
+		len(failed), total, failed[0], first)
 }
 
 // findInboxFolder returns the account's INBOX folder row. IMAP's INBOX is a
@@ -307,7 +371,7 @@ func (a *App) findInboxFolder(accountID int64) (*storage.Folder, error) {
 // progress/new-mail events syncFolders would, without touching any other
 // folder on the account. Used by the idle push handler so a single INBOX
 // update does not pay for a full-account resync.
-func (a *App) syncOneFolder(client *pimap.Client, folder storage.Folder) error {
+func (a *App) syncOneFolder(client mailClient, folder storage.Folder) error {
 	// the idle push path reaches this directly, so it has to honour the
 	// exclusion too. An excluded INBOX is unusual but it is the user's call.
 	if folder.SyncExcluded {
@@ -341,14 +405,13 @@ func (a *App) idleLoop(account storage.Account) {
 	ctx := a.sessionCtx()
 	for ctx.Err() == nil {
 		if err := a.idleSession(ctx, account); err != nil && ctx.Err() == nil {
-			if errors.Is(err, errNoCredentials) {
-				return
+			if !errors.Is(err, errNoCredentials) {
+				a.log.Error("idle session", "account", account.Email, "err", err)
 			}
-			a.log.Error("idle session", "account", account.Email, "err", err)
 			select {
 			case <-ctx.Done():
 				return
-			case <-time.After(15 * time.Second):
+			case <-time.After(idleRetryWait(err)):
 			}
 		}
 	}
@@ -362,7 +425,7 @@ func (a *App) idleSession(ctx context.Context, account storage.Account) error {
 		return err
 	}
 
-	client, err := pimap.Connect(cfg)
+	client, err := a.connectIMAP(cfg)
 	if err != nil {
 		return err
 	}
@@ -418,7 +481,7 @@ func (a *App) idleSession(ctx context.Context, account storage.Account) error {
 // newSyncEngine builds a sync engine for one account with the settings every
 // caller needs, including where deleted mail goes. Roles are resolved here
 // because the sync package does not know about them.
-func (a *App) newSyncEngine(client *pimap.Client, accountID int64) *psync.Engine {
+func (a *App) newSyncEngine(client mailClient, accountID int64) *psync.Engine {
 	engine := psync.NewEngine(client, a.store, a.log)
 	engine.ColorSync = a.boolSetting(settingFlagColorSync, false)
 	engine.InitialLimit = a.syncMessageLimit()

@@ -220,13 +220,28 @@
 
   $: hasContent = text !== '' || chips.length > 0
 
+  // viewName is what the new view is called before the user renames it.
+  //
+  // A keyword token becomes a chip as soon as it is typed, which leaves the text
+  // box empty: searching "from:bob" and pressing save gave the editor a blank
+  // name, and a view cannot be saved without one. The save button was then
+  // greyed out with nothing on screen saying why. The chips describe the search
+  // just as well, so they name it.
+  function viewName(): string {
+    const typed = text.trim()
+    if (typed !== '') {
+      return typed
+    }
+    return chips.map(chipText).join(' ')
+  }
+
   // saveAsView opens the view editor seeded from the current query and chips, so
   // a search the user just ran becomes a saved View. The relative date window is
   // left for the editor since the chips carry absolute dates.
   function saveAsView(): void {
     const f = buildFilter()
     openViewEditor({
-      name: text.trim(),
+      name: viewName(),
       queryText: text.trim(),
       queryFrom: f.from ? [f.from] : [],
       queryTo: f.to ? [f.to] : [],
@@ -337,6 +352,11 @@
   .search {
     position: relative;
     flex: 1;
+    /* without this the box refuses to shrink below the chips it contains: a
+       flex item's automatic minimum is its min-content, and the chips are
+       nowrap. The list column is a fixed width, so the bar grew straight over
+       the reading pane instead. The chips scroll inside .field. */
+    min-width: 0;
     display: flex;
     align-items: center;
     gap: var(--space-2);

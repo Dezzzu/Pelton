@@ -23,7 +23,6 @@ Pelton uses ++cmd++ on macOS and ++ctrl++ on Windows and Linux for the same bind
 | ++cmd+h++ | Hide window (macOS) |
 | ++cmd+w++ | Close the front compose window, settings, or the window itself |
 | ++cmd+q++ | Quit |
-| ++backspace++ | Delete the selected messages, or the open one |
 
 ## Menu bar access keys
 
@@ -35,9 +34,25 @@ macOS has no such convention and does not use them.
 
 ## Message actions
 
-Delete is bound: ++backspace++, and ++delete++ does the same thing until you change the binding. It moves what you have selected to Trash, or the open message when nothing is selected, and ++cmd+z++ brings it back.
+Each one acts on the messages you have selected, or on the open one when nothing is selected.
 
-Reply, reply all, forward, mark read or unread, flag, snooze, archive and download-for-offline ship unbound so they cannot collide with anything. Bind them to whatever you like under **Settings, Shortcuts**. Each one acts on the messages you have selected, or on the open one when nothing is selected.
+| Shortcut | Action |
+| -------- | ------ |
+| ++r++ | Reply |
+| ++a++ | Reply all |
+| ++f++ | Forward |
+| ++e++ | Archive |
+| ++s++ | Flag |
+| ++u++ | Mark unread |
+| ++m++ | Move to folder |
+| ++z++ | Snooze |
+| ++backspace++ | Delete |
+
+These are the single letters webmail has used for years, so the keys you already know work here. They only fire when you are not typing: in a search box, an address field or the editor, the letter is just a letter.
+
+++delete++ deletes as well as ++backspace++, until you change that binding. Delete moves to Trash, and ++cmd+z++ brings it back.
+
+Mark read, download-for-offline and unsubscribe ship unbound. Bind them to whatever you like under **Settings, Shortcuts**, which is also where you can change any of the keys above.
 
 Whatever you bind shows up next to the matching entry when you right-click a message, and in the toolbar tooltips. Turn that off under **Settings, Shortcuts** with "Show keyboard shortcut hints in the app".
 

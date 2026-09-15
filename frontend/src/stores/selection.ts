@@ -117,6 +117,27 @@ export function selectSavedView(viewId: number, label: string): void {
   searchQuery.set('')
 }
 
+// leaveDeletedSavedView moves the list back to the unified inbox when the saved
+// View it is showing has just been deleted. Staying put leaves the list, the
+// header and the search bar bound to a view id the backend no longer has.
+export function leaveDeletedSavedView(viewId: number): void {
+  const sel = get(selection)
+  if (sel.kind === 'savedView' && sel.viewId === viewId) {
+    selectView('inbox', unifiedViewLabel('inbox'))
+  }
+}
+
+// leaveMissingSavedView does the same for a View that is simply no longer in
+// the saved list, whatever became of it: deleted from another window, dropped
+// by a profile switch, or gone from the server. The delete button is not the
+// only way a View can stop existing under the list showing it.
+export function leaveMissingSavedView(ids: readonly number[]): void {
+  const sel = get(selection)
+  if (sel.kind === 'savedView' && !ids.includes(sel.viewId)) {
+    selectView('inbox', unifiedViewLabel('inbox'))
+  }
+}
+
 // selectFolder switches the list to a single account folder.
 export function selectFolder(folder: Folder): void {
   const sel: Selection = {

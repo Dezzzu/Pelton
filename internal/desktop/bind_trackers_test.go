@@ -1,7 +1,6 @@
 package desktop
 
 import (
-	"context"
 	"log/slog"
 	"path/filepath"
 	"strings"
@@ -12,12 +11,13 @@ import (
 
 func newTrackerTestApp(t *testing.T) *App {
 	t.Helper()
-	ctx := context.Background()
+	ctx, stopBackground := testContext(t)
 	store, err := storage.Open(filepath.Join(t.TempDir(), "test.db"))
 	if err != nil {
 		t.Fatalf("open store: %v", err)
 	}
 	t.Cleanup(func() { _ = store.Close() })
+	t.Cleanup(stopBackground)
 	if err := store.RunMigrations(ctx); err != nil {
 		t.Fatalf("migrate: %v", err)
 	}

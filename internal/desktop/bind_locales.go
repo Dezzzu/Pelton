@@ -28,7 +28,7 @@ const localeStringsCap = 20000
 // builtinLocales are the bundled languages a user locale may use as its
 // fallback base.
 var builtinLocales = map[string]bool{
-	"en": true, "de": true, "fr": true, "nl": true, "es": true, "pl": true,
+	"en": true, "de": true, "fr": true, "nl": true, "es": true, "pl": true, "tr": true,
 }
 
 // localeIDPattern is the shape of a user locale id (its file name without
@@ -186,8 +186,7 @@ func (a *App) OpenLocalesFolder() error {
 	if err != nil {
 		return err
 	}
-	wailsruntime.BrowserOpenURL(a.ctx, "file://"+dir)
-	return nil
+	return openPath(dir)
 }
 
 // SaveLocaleTemplate writes a translation template (built by the frontend
