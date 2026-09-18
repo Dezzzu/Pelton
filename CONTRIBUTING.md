@@ -126,6 +126,16 @@ BREAKING CHANGE: sync endpoint now returns paginated results
 
 Please keep the short description under ~72 characters, written in the imperative mood ("add" not "added" or "adds"). Don't forget to sign off your commits per the DCO requirement above.
 
+## Branches
+
+**Send every pull request to `main`.** That is the only branch you need to think about, whether you're fixing a typo or adding a feature.
+
+Branch off `main`, name it `type/short-slug` to match your commit type, and keep unrelated changes out of it. One branch per change.
+
+You'll also see `release/<version>` branches, such as `release/2026.4`. Those are the versions people have actually installed, and they only ever receive fixes that are already on `main`, copied over by a maintainer when something needs to ship before the next release. Please don't branch from them or open PRs against them.
+
+`main` is frequently in a half-finished state between releases, which is expected. If something on `main` looks broken, it may simply not be finished yet, so check the open PRs and issues before reporting it.
+
 ## Pelton-specific
 
 As Pelton is privacy focused you have a couple more rules:
