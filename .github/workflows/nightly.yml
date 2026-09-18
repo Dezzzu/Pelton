@@ -1,7 +1,7 @@
 name: Nightly builds
 
-# Builds the dev branch once a day and publishes the installers as a GitHub
-# prerelease tagged nightly-YYYY.MM.DD (#171).
+# Builds the main branch (the trunk) once a day and publishes the installers as
+# a GitHub prerelease tagged nightly-YYYY.MM.DD (#171).
 #
 # Nightlies are untested and must never be mistaken for a release, so:
 #   * the release is always a prerelease. GitHub's /releases/latest API skips
@@ -20,7 +20,7 @@ name: Nightly builds
 # downloadable, and the previous day's nightly stays the newest thing on the
 # releases page.
 #
-# Nothing runs when dev has not moved since the last nightly, and nightlies
+# Nothing runs when main has not moved since the last nightly, and nightlies
 # older than RETENTION_DAYS are deleted so the releases page stays readable.
 
 on:
@@ -34,7 +34,7 @@ on:
   workflow_dispatch:
     inputs:
       force:
-        description: "Build even if dev has not changed since the last nightly"
+        description: "Build even if main has not changed since the last nightly"
         type: boolean
         default: false
 
@@ -48,8 +48,8 @@ env:
 jobs:
   # ---------------------------------------------------------------------------
   # Decide whether there is anything to build. A nightly tag always points at
-  # the dev commit it was built from, so an existing nightly tag on the current
-  # dev HEAD means nothing has been merged since and the whole run is skipped.
+  # the main commit it was built from, so an existing nightly tag on the current
+  # main HEAD means nothing has been merged since and the whole run is skipped.
   # ---------------------------------------------------------------------------
   check:
     runs-on: ubuntu-latest
@@ -63,7 +63,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
           fetch-depth: 0
 
       - name: Decide
@@ -108,10 +108,10 @@ jobs:
 
           existing="$(git tag --points-at "$sha" 'nightly-*' | head -n1)"
           if [ -n "$existing" ]; then
-            echo "dev HEAD $short is already published as $existing, nothing to build"
+            echo "main HEAD $short is already published as $existing, nothing to build"
             echo "build=false" >> "$GITHUB_OUTPUT"
           else
-            echo "dev HEAD $short has no nightly yet, building"
+            echo "main HEAD $short has no nightly yet, building"
             echo "build=true" >> "$GITHUB_OUTPUT"
           fi
 
@@ -127,7 +127,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
 
       - uses: actions/setup-go@v5
         with:
@@ -234,7 +234,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
 
       - uses: actions/setup-go@v5
         with:
@@ -310,7 +310,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: dev
+          ref: main
 
       - uses: actions/setup-go@v5
         with:
@@ -412,7 +412,7 @@ jobs:
           > [!CAUTION]
           > ## This is not a release. Do not use it with your real inbox.
           >
-          > This is an **automated nightly build** of Pelton, made from the `dev`
+          > This is an **automated nightly build** of Pelton, made from the `main`
           > branch. It has **not been reviewed, tested or released**, and it is
           > expected to break.
           >
@@ -453,7 +453,7 @@ jobs:
             echo ""
             echo "---"
             echo ""
-            echo "Built from \`dev\` at [\`$SHORT_SHA\`](https://github.com/peltonapp/Pelton/commit/$SHA)."
+            echo "Built from \`main\` at [\`$SHORT_SHA\`](https://github.com/peltonapp/Pelton/commit/$SHA)."
           } >> notes.md
 
           gh release create "$TAG" \

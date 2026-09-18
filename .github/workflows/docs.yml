@@ -1,12 +1,18 @@
 # Builds and deploys docs.pelton.app (GitHub Pages) whenever the docs change
-# on main. The site is fully self-hosted: the no-CDN check below fails the
-# build if any external host sneaks into the output (GDPR: visitor IPs must
-# not leak to third parties).
+# on a release branch. The site documents the version users actually have, so
+# it follows the release line rather than main: main is the trunk and carries
+# unreleased work, and publishing from it would document features nobody can
+# use yet. A docs fix reaches the site the same way a code fix reaches users,
+# by landing on main and being cherry-picked onto the release branch.
+#
+# The site is fully self-hosted: the no-CDN check below fails the build if any
+# external host sneaks into the output (GDPR: visitor IPs must not leak to
+# third parties).
 name: Docs
 
 on:
   push:
-    branches: [main]
+    branches: ["release/**"]
     paths:
       - "docs/**"
       - "zensical.toml"
