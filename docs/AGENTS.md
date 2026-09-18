@@ -1,10 +1,10 @@
 # Pelton, machine-readable documentation
 
-Pelton is a free, open source, privacy-focused email client for macOS, Windows and Linux. Go + Wails backend, Svelte frontend. No telemetry. Website: https://pelton.app. Source: https://github.com/TRC-Loop/Pelton. Human docs: https://docs.pelton.app.
+Pelton is a free, open source, privacy-focused email client for macOS, Windows and Linux. Go + Wails backend, Svelte frontend. No telemetry. Website: https://pelton.app. Source: https://github.com/peltonapp/Pelton. Human docs: https://docs.pelton.app.
 
 ## Install
 
-- macOS: .dmg per release at https://github.com/TRC-Loop/Pelton/releases (unsigned; right-click Open or `xattr -cr /Applications/Pelton.app`)
+- macOS: .dmg per release at https://github.com/peltonapp/Pelton/releases (unsigned; right-click Open or `xattr -cr /Applications/Pelton.app`)
 - Windows: `Pelton-<version>-windows-amd64-installer.exe` from releases (unsigned)
 - Fedora: `sudo dnf copr enable arnek/Pelton && sudo dnf install pelton`
 - Raw rpm: `Pelton-<version>-linux-fedora-x86_64.rpm` from releases

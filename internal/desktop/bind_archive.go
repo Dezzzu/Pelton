@@ -5,8 +5,8 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	"github.com/TRC-Loop/Pelton/internal/mailexport"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/mailexport"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // ArchiveUndoDTO carries what undo-archive needs to move a message back: its

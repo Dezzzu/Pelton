@@ -16,7 +16,7 @@ import (
 	"github.com/emersion/go-imap/v2"
 	"github.com/emersion/go-imap/v2/imapclient"
 
-	"github.com/TRC-Loop/Pelton/internal/charsetguess"
+	"github.com/peltonapp/Pelton/internal/charsetguess"
 )
 
 // DialFunc opens a raw tcp connection; the proxy layer supplies one to route

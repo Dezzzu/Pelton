@@ -9,7 +9,7 @@ import (
 
 	wailsruntime "github.com/wailsapp/wails/v2/pkg/runtime"
 
-	"github.com/TRC-Loop/Pelton/internal/themepack"
+	"github.com/peltonapp/Pelton/internal/themepack"
 )
 
 // Themes live in the themes folder next to the database as .peltontheme

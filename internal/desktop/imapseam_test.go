@@ -10,9 +10,9 @@ import (
 	"github.com/emersion/go-imap/v2"
 	keyring "github.com/zalando/go-keyring"
 
-	"github.com/TRC-Loop/Pelton/internal/credentials"
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/credentials"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // TestMain swaps go-keyring for its in-memory mock before any test in this

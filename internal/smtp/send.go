@@ -5,8 +5,8 @@ import (
 	"log/slog"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/crypto"
-	"github.com/TRC-Loop/Pelton/internal/outbox"
+	"github.com/peltonapp/Pelton/internal/crypto"
+	"github.com/peltonapp/Pelton/internal/outbox"
 )
 
 // Enqueue builds the message (applying crypto when requested) and adds it to the

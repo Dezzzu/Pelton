@@ -4,11 +4,11 @@ import (
 	"errors"
 	"os"
 
-	"github.com/TRC-Loop/Pelton/internal/credentials"
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/oauth"
-	psmtp "github.com/TRC-Loop/Pelton/internal/smtp"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/credentials"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/oauth"
+	psmtp "github.com/peltonapp/Pelton/internal/smtp"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // errNoCredentials means an account has no usable secret in the keyring and no

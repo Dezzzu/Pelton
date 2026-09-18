@@ -10,8 +10,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/logging"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // logging setting keys. All of them default off on a stable build.

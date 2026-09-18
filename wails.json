@@ -15,7 +15,7 @@
     "productName": "Pelton",
     "productVersion": "0.0.0",
     "copyright": "Copyright (c) 2026 Arne K. and the Pelton contributors. Licensed under GPL-3.0-or-later.",
-    "comments": "Open-source desktop email client. https://github.com/TRC-Loop/Pelton",
+    "comments": "Open-source desktop email client. https://github.com/peltonapp/Pelton",
     "protocols": [
       {
         "scheme": "mailto",

@@ -9,8 +9,8 @@ import (
 	"os"
 	"slices"
 
-	"github.com/TRC-Loop/Pelton/internal/desktop"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/desktop"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 //go:embed all:frontend/dist

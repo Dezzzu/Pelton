@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"strings"
 
-	"github.com/TRC-Loop/Pelton/internal/mcpserver"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/mcpserver"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // mcpWriter adapts the app's own message actions to mcpserver.Writer.

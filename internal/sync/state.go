@@ -7,7 +7,7 @@ import (
 
 	"github.com/emersion/go-imap/v2"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // labelKeywords maps color indices 1..8 to the Thunderbird-style imap keywords

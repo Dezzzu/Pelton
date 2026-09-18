@@ -76,7 +76,7 @@ at your own risk.
 Pelton is under active development. Features may change, be restricted or be
 removed, and data formats may change between versions.
 
-You can report bugs as an issue at https://github.com/TRC-Loop/Pelton and we
+You can report bugs as an issue at https://github.com/peltonapp/Pelton and we
 do read those reports. There is no entitlement to a reply, a fix, further
 development, updates or any level of availability, unless mandatory law
 provides otherwise.
@@ -191,7 +191,7 @@ Pelton befindet sich in aktiver Entwicklung. Funktionen können sich
 ändern, eingeschränkt werden oder entfallen, und Datenformate können sich
 zwischen Versionen ändern.
 
-Sie können Fehler als Issue unter https://github.com/TRC-Loop/Pelton
+Sie können Fehler als Issue unter https://github.com/peltonapp/Pelton
 melden, und wir lesen diese Meldungen. Ein Anspruch auf Antwort,
 Fehlerbehebung, Weiterentwicklung, Updates oder eine bestimmte
 Verfügbarkeit besteht nicht, soweit sich nicht aus zwingendem Recht etwas

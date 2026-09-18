@@ -5,7 +5,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/themepack"
+	"github.com/peltonapp/Pelton/internal/themepack"
 )
 
 func TestSetEditorCSSAddsOnce(t *testing.T) {

@@ -7,7 +7,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func moveTestApp(t *testing.T) (*App, *storage.DB, context.Context) {

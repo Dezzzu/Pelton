@@ -1,6 +1,6 @@
 package desktop
 
-import "github.com/TRC-Loop/Pelton/internal/storage"
+import "github.com/peltonapp/Pelton/internal/storage"
 
 // Nightly builds are cut automatically from the dev branch by
 // .github/workflows/nightly.yml. They are untested, unreviewed and expected to

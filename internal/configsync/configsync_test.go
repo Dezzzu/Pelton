@@ -8,7 +8,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // writeMarker drops a legacy in-place marker into stateDir pointing at path.

@@ -1,3 +1,8 @@
+---
+title: Command palette
+description: Pelton's keyboard-driven command palette, for actions, mailboxes, settings and mail search.
+---
+
 # Command palette
 
 The command palette is one keyboard-driven surface for everything Pelton can do: every action, every mailbox, every saved view and every settings pane, all one fuzzy search away.
@@ -70,10 +75,14 @@ This is counted and stored locally, in the same settings database as the rest of
 
 ## Keyboard shortcuts for everything in it
 
-Every action in the palette is also an action in **Settings, Shortcuts**, so anything you reach for often can get its own key instead. Actions that need a target, like Rename mailbox, open the palette on their own picker when you press their key.
+Every action in the palette is also an action in [**Settings, Shortcuts**](shortcuts.md), so anything you reach for often can get its own key instead. Actions that need a target, like Rename mailbox, open the palette on their own picker when you press their key.
 
 The palette's own binding lives there too, so if Cmd+K is spoken for on your system you can move it.
 
 ## Changing what is in the menu bar
 
 The palette and the in-app menu bar read the same list of actions, so an action you see in one is assignable in the other. **Settings, Menu bar** is where you add them to a menu.
+
+## Need help?
+
+See [Support](../support.md).

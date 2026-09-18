@@ -1,7 +1,7 @@
 package desktop
 
 import (
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // AccountSyncStateDTO is how one account's last sync went. LastOK survives a

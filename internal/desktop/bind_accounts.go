@@ -3,7 +3,7 @@ package desktop
 import (
 	"context"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // ListAccounts returns all configured accounts. Accounts are created by the cli

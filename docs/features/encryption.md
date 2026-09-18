@@ -1,10 +1,11 @@
-# Encryption keys
+---
+title: Encryption
+description: Import OpenPGP keys, send signed and encrypted mail, and read protected mail in Pelton.
+---
 
-Pelton stores OpenPGP keys so it can sign the mail you send and read the encrypted mail you receive. This page covers getting keys into Pelton and looking after them.
+# Encryption
 
-!!! note
-
-    Pelton can read the protected mail you receive. Sending signed or encrypted mail is not built yet.
+Pelton stores OpenPGP keys so it can sign, encrypt, and read the protected mail you send and receive. This page covers getting keys into Pelton, sending protected mail, and looking after your keys.
 
 ## Where keys come from
 
@@ -29,6 +30,19 @@ Thunderbird, Enigmail and most other clients can export the same thing.
 A public key lets you encrypt to that person. A private key additionally lets you sign and decrypt, and its public half is imported too so you can encrypt to yourself.
 
 Importing a key you already have replaces it rather than adding a duplicate, so refreshing a correspondent's key after they extend its expiry is just another import.
+
+## Sending protected mail
+
+Compose has a protection control with four choices: **none**, **sign**, **encrypt**, and **sign and encrypt**. It only ever offers a choice that can actually succeed:
+
+- **Sign** needs a private key for your own account's address.
+- **Encrypt** needs a public key for every recipient, To, Cc and Bcc alike. As you add or remove recipients, the compose window re-checks and tells you by name which address is missing a key if encryption isn't possible yet.
+
+Each account has a default under **Settings, Encryption**: **off**, **always sign**, or **auto** (sign and encrypt whenever every recipient has a key, otherwise send unprotected). A default never turns into a failed send: "always sign" with no signing key of your own simply falls back to off, and the compose window always shows what is actually about to happen rather than trusting the default silently.
+
+**Bcc and encryption don't mix.** An OpenPGP message names every key it was encrypted to, so a Bcc'd recipient would be visible to everyone else on the message, defeating the point of Bcc. Pelton refuses the combination rather than leaking it; send the Bcc'd recipient a separate copy instead.
+
+If your signing key needs a passphrase Pelton doesn't already hold, sending prompts for it at that point rather than failing silently or sending the message unprotected.
 
 ## Where they are kept
 
@@ -121,3 +135,7 @@ Three things you can see:
 | A note on the badge | The check could not be made: offline, the authority did not answer, or the certificate names no way to ask. The signature verdict is left alone, because being offline says nothing about a certificate. |
 
 Turning the setting off deletes every answer Pelton has cached.
+
+## Need help?
+
+See [Support](../support.md).

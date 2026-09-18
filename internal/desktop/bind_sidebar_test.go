@@ -7,7 +7,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func newSidebarTestApp(t *testing.T) *App {

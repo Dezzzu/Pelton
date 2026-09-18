@@ -1,4 +1,4 @@
-module github.com/TRC-Loop/Pelton
+module github.com/peltonapp/Pelton
 
 go 1.26.0
 

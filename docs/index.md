@@ -1,39 +1,47 @@
-# Pelton Docs
+---
+title: Pelton Documentation
+description: Documentation for Pelton, the privacy-focused email client.
+---
 
-Pelton is a free, open source email client for macOS, Windows and Linux, built around privacy. No telemetry, no tracking, no third-party servers between you and your mail. Your mail lives on your IMAP server and in a local cache on your machine, nowhere else.
+![Pelton Documentation](assets/pelton-docs-banner.webp){ .docs-banner }
+
+# Pelton Documentation
+
+Pelton is a free, open source, cross-platform email client built around
+privacy: no telemetry, no analytics, no third-party servers in the data path.
 
 <div class="grid cards" markdown>
 
-- **[Install](install.md)**
+-   __Install__
 
-    Downloads for macOS, Windows and Linux, including `dnf` installs from Fedora Copr and building from source.
+    ---
 
-- **[Getting started](getting-started.md)**
+    Get Pelton running on Windows, macOS, or Linux.
 
-    Add your first mailbox, set up app passwords, and learn where your data lives.
+    [Install/Update Pelton &rarr;](install/index.md)
 
-- **[Themes](themes/index.md)**
+-   __Set up a mailbox__
 
-    What a `.peltontheme` file is, the full format spec, and how to build and share your own theme.
+    ---
 
-- **[Shortcuts](shortcuts.md)**
+    Connect Gmail, iCloud, Outlook, or any IMAP/SMTP account.
 
-    The default keyboard shortcuts and how to rebind them.
+    [Set up a mailbox &rarr;](mailbox/index.md)
 
-- **[FAQ](faq.md)**
+-   __Features__
 
-    Unsigned app warnings, Gmail quirks, backups, and what Pelton does and does not send over the network.
+    ---
 
-- **[Source code](https://github.com/TRC-Loop/Pelton)**
+    Shortcuts, the command palette, link/attachment scanning, encryption.
 
-    Pelton is FOSS. Issues, pull requests and theme ideas are welcome.
+    [Browse features &rarr;](features/shortcuts.md)
 
-- **[Website](https://pelton.app)**
+-   __Need help?__
 
-    The Pelton website, with screenshots and a feature tour.
+    ---
 
-- **[Discord](https://discord.gg/UzPNGZYy6V)**
+    Get support, report a bug, or find the security contact.
 
-    Ask questions, report oddities and follow what is being worked on.
+    [Go to Support &rarr;](support.md)
 
 </div>

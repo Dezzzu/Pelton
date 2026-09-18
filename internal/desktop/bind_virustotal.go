@@ -11,10 +11,10 @@ import (
 	"sync"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/credentials"
-	"github.com/TRC-Loop/Pelton/internal/mailview"
-	"github.com/TRC-Loop/Pelton/internal/storage"
-	"github.com/TRC-Loop/Pelton/internal/virustotal"
+	"github.com/peltonapp/Pelton/internal/credentials"
+	"github.com/peltonapp/Pelton/internal/mailview"
+	"github.com/peltonapp/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/virustotal"
 )
 
 // VirusTotal settings keys. Everything here is off unless the user turns it on,

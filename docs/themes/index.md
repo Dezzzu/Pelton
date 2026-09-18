@@ -1,26 +1,56 @@
+---
+title: Themes
+description: How Pelton's theme system works, and where to go to install, format, or create a theme.
+---
+
 # Themes
 
-Pelton's whole interface is driven by design tokens: named values for every color, font, radius and shadow. A theme is a file that overrides some of those tokens, optionally adds CSS for things tokens cannot express, and can even swap interface icons. Anything a theme does not override falls back to the built-in light or dark look, so a theme is always complete.
+A theme changes Pelton's colors, fonts, and icons, and can add its own CSS on top for anything else. It's a small, sandboxed package: no network access, no filesystem access beyond what's bundled inside the file itself.
 
-Themes ship as single `.peltontheme` files (a zip container). Install one under **Settings, Themes, Import theme**, share one by sending the file.
+![Settings > Themes, showing the installed theme gallery with New theme, Import theme, Browse themes, Open folder, and Reload](../assets/screenshots/screenshot-settings-themes.png)
+
+## What a theme can and can't do
+
+Every theme, whether installed from a file or built in Settings, is validated the same way before it's ever applied:
+
+- **Token allowlist.** Only a fixed, documented set of tokens is themeable, see [Theme format](format.md#tokens).
+- **No external requests.** A theme can't reach out to the internet, anything it needs (fonts, images) has to be bundled inside the file itself. If a theme tries to anyway, Pelton warns you and blocks it by default.
+- **Safe icons.** A custom icon can't contain anything executable, only plain images survive.
+- **Size caps.** A theme file can't be huge, see [Theme format](format.md#size-limits) for the exact limits, so it can't balloon Pelton's memory or disk usage.
+
+## Next steps
 
 <div class="grid cards" markdown>
 
-- **[Theme format](format.md)**
+-   __Installing a theme__
 
-    The full `.peltontheme` spec: container layout, manifest fields, the themeable token surface, CSS rules and icon overrides.
+    ---
 
-- **[Create a theme](create.md)**
+    Where to get one, how to import it, and where installed themes live
+    on disk.
 
-    Build a working theme from scratch, test it live, and export it for sharing.
+    [Install a theme →](install.md)
+
+-   __Theme format__
+
+    ---
+
+    The full `manifest.json` schema, the complete token list, and the size
+    limits.
+
+    [Read the format reference →](format.md)
+
+-   __Create a theme__
+
+    ---
+
+    A full walkthrough: writing a manifest, adding CSS and icons, testing
+    it, and sharing it with the community.
+
+    [Start creating →](create.md)
 
 </div>
 
-## Security model, in short
+## Need help?
 
-Themes are code-adjacent, so Pelton treats them with care:
-
-- Before anything installs, you see the theme's metadata and the raw contents of every CSS file it ships.
-- CSS that references the network (remote `url()`, `@import`) triggers an explicit warning listing every reference. You choose whether to keep them or have them stripped; stripping is the default. A theme that loads a remote resource can be used to track you, which is why well-made themes bundle fonts and images inside the file instead.
-- Icon SVGs are checked at import: scripts, event handlers and external references are rejected outright.
-- Token values are validated against an allowlist, so a theme cannot smuggle arbitrary CSS through a color field.
+See [Support](../support.md).

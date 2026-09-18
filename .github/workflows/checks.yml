@@ -26,9 +26,9 @@ name: Checks
 
 on:
   pull_request:
-    branches: [main, dev]
+    branches: [main, "release/**"]
   push:
-    branches: [main, dev]
+    branches: [main, "release/**"]
   workflow_dispatch:
 
 # A second push to the same pull request cancels the previous run rather than

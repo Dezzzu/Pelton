@@ -7,7 +7,7 @@ import (
 	"runtime"
 	"strings"
 
-	"github.com/TRC-Loop/Pelton/internal/logging"
+	"github.com/peltonapp/Pelton/internal/logging"
 )
 
 var (

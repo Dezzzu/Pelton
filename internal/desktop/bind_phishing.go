@@ -5,8 +5,8 @@ import (
 	"sync"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/phishing"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/phishing"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // auth statuses the ui shows on a message. "unavailable" means the receiving

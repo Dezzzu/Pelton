@@ -7,8 +7,8 @@ import (
 	"github.com/emersion/go-imap/v2"
 	"github.com/emersion/go-imap/v2/imapclient"
 
-	"github.com/TRC-Loop/Pelton/internal/charsetguess"
-	"github.com/TRC-Loop/Pelton/internal/rfc822"
+	"github.com/peltonapp/Pelton/internal/charsetguess"
+	"github.com/peltonapp/Pelton/internal/rfc822"
 )
 
 // Mailbox summarises a selected mailbox.

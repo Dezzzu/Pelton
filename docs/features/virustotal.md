@@ -1,3 +1,8 @@
+---
+title: Scanning links and attachments
+description: Check links and attachments against VirusTotal, opt-in and privacy-aware.
+---
+
 # Scanning links and attachments
 
 Links and attachments in email are how most malware and phishing arrives. Pelton can check either one against [VirusTotal](https://www.virustotal.com), which aggregates around seventy antivirus engines and URL blocklists into a single verdict.
@@ -64,3 +69,7 @@ If you do hit the limit, affected targets show the warning badge and read "rate 
 ## Turning it off
 
 Switching **VirusTotal** off in **Settings, External** clears the cached verdicts as well, so the local record of which links and files were checked does not outlive the feature. Both automatic scanning toggles are reset at the same time, so turning the integration back on later never silently resumes scanning on its own. Clearing the API key has the same effect on the cache.
+
+## Need help?
+
+See [Support](../support.md).

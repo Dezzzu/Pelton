@@ -5,8 +5,8 @@ import (
 	"errors"
 	"strings"
 
-	pcarddav "github.com/TRC-Loop/Pelton/internal/carddav"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	pcarddav "github.com/peltonapp/Pelton/internal/carddav"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Writing contacts back (#168).

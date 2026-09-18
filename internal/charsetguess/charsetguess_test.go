@@ -9,7 +9,7 @@ import (
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/encoding/japanese"
 
-	"github.com/TRC-Loop/Pelton/internal/charsetguess"
+	"github.com/peltonapp/Pelton/internal/charsetguess"
 )
 
 func TestDecodeAlwaysProducesValidUTF8(t *testing.T) {

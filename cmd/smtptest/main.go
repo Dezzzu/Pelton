@@ -29,11 +29,11 @@ import (
 	"syscall"
 	"time"
 
-	pcrypto "github.com/TRC-Loop/Pelton/internal/crypto"
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
-	"github.com/TRC-Loop/Pelton/internal/outbox"
-	psmtp "github.com/TRC-Loop/Pelton/internal/smtp"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	pcrypto "github.com/peltonapp/Pelton/internal/crypto"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
+	"github.com/peltonapp/Pelton/internal/outbox"
+	psmtp "github.com/peltonapp/Pelton/internal/smtp"
+	"github.com/peltonapp/Pelton/internal/storage"
 
 	"log/slog"
 )

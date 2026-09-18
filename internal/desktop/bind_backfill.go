@@ -3,7 +3,7 @@ package desktop
 import (
 	"fmt"
 
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 // Fetching older mail on demand (#175). A first sync only caches a folder's

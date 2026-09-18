@@ -7,8 +7,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/TRC-Loop/Pelton/internal/mailexport"
-	"github.com/TRC-Loop/Pelton/internal/storage"
+	"github.com/peltonapp/Pelton/internal/mailexport"
+	"github.com/peltonapp/Pelton/internal/storage"
 )
 
 func exportTestApp(t *testing.T) (*App, *storage.DB, context.Context) {

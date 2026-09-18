@@ -8,12 +8,12 @@ import (
 	"sync"
 	"time"
 
-	"github.com/TRC-Loop/Pelton/internal/outbox"
-	psmtp "github.com/TRC-Loop/Pelton/internal/smtp"
-	"github.com/TRC-Loop/Pelton/internal/storage"
-	psync "github.com/TRC-Loop/Pelton/internal/sync"
+	"github.com/peltonapp/Pelton/internal/outbox"
+	psmtp "github.com/peltonapp/Pelton/internal/smtp"
+	"github.com/peltonapp/Pelton/internal/storage"
+	psync "github.com/peltonapp/Pelton/internal/sync"
 
-	pimap "github.com/TRC-Loop/Pelton/internal/imap"
+	pimap "github.com/peltonapp/Pelton/internal/imap"
 )
 
 // syncMu serializes imap sessions per process so manual and background syncs do
