@@ -152,6 +152,10 @@ You'll also see `release/<version>` branches, such as `release/2026.4`. Those ar
 
 `main` is frequently in a half-finished state between releases, which is expected. If something on `main` looks broken, it may simply not be finished yet, so check the open PRs and issues before reporting it.
 
+## Getting credited
+
+It's appreciated if you add yourself to [AUTHORS.md ↗](https://github.com/peltonapp/Pelton/blob/main/AUTHORS.md) so you get credited by name. Add yourself in the same PR, or in a follow-up update it.
+
 ## Pelton-specific
 
 As Pelton is privacy focused you have a couple more rules:
